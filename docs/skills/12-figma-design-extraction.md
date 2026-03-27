@@ -1,13 +1,13 @@
 # Skill: Figma Extraction
 
-**Canonical extraction procedure:** When running inside CW1, CW1 steps supersede this skill's steps. Use this skill only for standalone extractions outside the MASTER workflow.
+**Canonical extraction procedure:** When running inside CW1, CW1 steps supersede this skill's steps. Use this skill only for standalone extractions outside the FEATURE-IMPLEMENTATION-MASTER workflow.
 
 ## Purpose
 Extract structured, implementation-ready data from a Figma design file using the Figma MCP, preventing the most common downstream failures: inferred fields, missing states, skipped screens, and approximate visual values.
 
 ## When to Use
 - Starting a new feature that has a Figma design
-- Auditing an existing UI against its Figma source (CW5A)
+- Auditing an existing UI against its Figma source (CW5A — Final UI Sync)
 - Needing exact visual specifications (colors, spacing, typography) from a design
 
 ## Steps

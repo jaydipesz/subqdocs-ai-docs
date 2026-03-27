@@ -6,8 +6,8 @@ Prevent data loss, partial state failures, and deployment issues caused by unsaf
 ## When to Use
 - Writing a new database migration
 - Altering an existing table (adding, renaming, modifying, or dropping columns)
-- Planning migrations during CW3 — Plan
-- Reviewing a migration before execution or merging during CW4 — Backend Implementation
+- Planning migrations during CW3 — Implementation Roadmap
+- Reviewing a migration before execution or merging during CW4 — Backend Build
 
 ## Steps
 

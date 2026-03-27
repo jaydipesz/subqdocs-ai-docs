@@ -1,19 +1,19 @@
 # Skill: Backend Implementation
 
-**Prerequisite:** Load skill `01-add-backend-module` first. This skill adds orchestration-level concerns; skill 01 provides the file-by-file reference code.
+**Prerequisite:** Load skill `01-backend-module-scaffolding` first. This skill adds orchestration-level concerns; skill 01 provides the file-by-file reference code.
 
 ## Purpose
 Ensure backend features are implemented in the correct dependency order with build verification, preventing the most common integration failures: unregistered models, missing migrations, broken type contracts.
 
 ## When to Use
 - Implementing a new backend module with multiple files (model, repo, controller, route)
-- Running CW4 — Backend Implementation
+- Running CW4 — Backend Build
 - Adding 3+ related endpoints to an existing module
 
 ## Steps
 
-1. Open the implementation plan provided as input. For each model listed, follow skill `01-add-backend-module` steps 1–9 in order.
-2. Before creating any migration, run the `migration-safety` skill against the planned column changes.
+1. Open the implementation plan provided as input. For each model listed, follow skill `01-backend-module-scaffolding` steps 1–9 in order.
+2. Before creating any migration, run the `17-database-migration-safety` skill against the planned column changes.
 3. After creating all migrations, run `npm run migrate`. If any migration fails, fix it before creating repositories.
 4. After creating all repositories, run `npx tsc --noEmit`. Fix type errors before creating controllers.
 5. For validation schemas, use the standard library mandated by the global `production-rules.md`. Use the established import pattern from adjacent endpoints if needed.
@@ -26,7 +26,7 @@ Ensure backend features are implemented in the correct dependency order with bui
 
 - NEVER skip the migration-safety check on altered tables — a broken migration blocks the entire deployment pipeline.
 - ALWAYS run `tsc --noEmit` after completing all files — partial type checking produces false passes.
-- ALWAYS delegate individual file creation to skill `01-add-backend-module` — do not reinvent patterns.
+- ALWAYS delegate individual file creation to skill `01-backend-module-scaffolding` — do not reinvent patterns.
 - NEVER write a controller that directly imports a Sequelize model — always go through a repository.
 - ALWAYS match error message phrasing to adjacent modules — inconsistent messages confuse the frontend team.
 - NEVER proceed past a failed migration — fix it before creating dependent code.

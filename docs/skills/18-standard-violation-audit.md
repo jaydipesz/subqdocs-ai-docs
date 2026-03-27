@@ -4,7 +4,7 @@
 Detect and log best-practice violations in existing code before building on top of it, preventing the most common replication failure: copying a pattern that works but violates project standards, then having to rewrite everything after review.
 
 ## When to Use
-- Running CW2 — Codebase Audit (best practice audit section)
+- Running CW2 — Pattern Audit (best practice audit section)
 - Before extending an existing module — checking whether its patterns are safe to replicate
 - Reviewing code quality after implementation
 

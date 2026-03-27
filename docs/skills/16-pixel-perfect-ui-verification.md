@@ -4,7 +4,7 @@
 Systematically compare every implemented frontend component against its Figma source and fix all discrepancies, preventing the most common UI failures: wrong spacing, approximate colors, missing states, and silently substituted icons.
 
 ## When to Use
-- After completing frontend implementation for a feature (CW5A)
+- After completing frontend implementation for a feature (CW5A — Final UI Sync)
 - When a component visually doesn't match the design and needs a systematic check
 - During a design review to verify Figma fidelity
 

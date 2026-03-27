@@ -1,20 +1,20 @@
 # Skill: Frontend Implementation
 
-**Prerequisite:** Load skills `02-add-frontend-route`, `05-add-redux-state`, and `11-add-api-service-call` first. This skill adds orchestration-level concerns; those skills provide the file-by-file reference code.
+**Prerequisite:** Load skills `02-frontend-route-registration`, `05-redux-state-management`, and `11-frontend-api-integration` first. This skill adds orchestration-level concerns; those skills provide the file-by-file reference code.
 
 ## Purpose
 Ensure frontend features are implemented in the correct dependency order with build verification, preventing the most common integration failures: mismatched API types, missing states, mixed form libraries, and broken routing.
 
 ## When to Use
 - Implementing a new frontend page with multiple components
-- Running CW5 — Frontend Implementation
+- Running CW5 — Frontend Build
 - Adding 3+ related components that connect to new API endpoints
 
 ## Steps
 
 1. Open the API contract or backend endpoint definitions provided as input. For each endpoint, create a TypeScript interface matching the response shape. Export all interfaces from a single types file in the feature directory.
-2. Create API service functions following skill `11-add-api-service-call`. One function per endpoint. Name as `verbNoun`. Every function must use the typed HTTP wrapper — verify by checking the import matches the pattern in the audit report.
-3. If Redux is needed (client-side UI state only), follow skill `05-add-redux-state`. Never store API response data in Redux — use `useQuery` for that.
+2. Create API service functions following skill `11-frontend-api-integration`. One function per endpoint. Name as `verbNoun`. Every function must use the typed HTTP wrapper — verify by checking the import matches the pattern in the audit report.
+3. If Redux is needed (client-side UI state only), follow skill `05-redux-state-management`. Never store API response data in Redux — use `useQuery` for that.
 4. Build each component as `React.FC<Props>`. Define the `Props` interface above the component. For each component:
    a. Open the FIGMA ANALYSIS REPORT and find the matching screen by name.
    b. Read the Visual Spec section for spacing, typography, and colors.
@@ -24,7 +24,7 @@ Ensure frontend features are implemented in the correct dependency order with bu
 5. For forms: ALWAYS use the library mandated by the global `production-rules.md`. Define the validation schema as a `const` outside the component. Copy validation rules from the matching backend validation schema exactly — field names, types, required/optional, and constraints must match.
 6. For pages: wrap data fetching in `useQuery` with a descriptive query key (e.g., `['invoices', { patientId }]`). Wrap mutations in `useMutation` with `onSuccess` that invalidates the relevant query keys and `onError` that shows a toast to the user.
 7. For modals: place in `src/components/common/modal/`. On close, reset form values and clear validation errors.
-8. For routing: follow skill `02-add-frontend-route`. Use `lazyWithRetry()`, set `routeType`, and add `navigatePath` for dynamic routes.
+8. For routing: follow skill `02-frontend-route-registration`. Use `lazyWithRetry()`, set `routeType`, and add `navigatePath` for dynamic routes.
 9. Run `npx tsc --noEmit` in `subqdocs-frontend/`. Fix all errors.
 10. Open 2–3 adjacent pages. Match toast message phrasing (e.g., "Created successfully" vs "Invoice created").
 11. Produce the COMPONENT-TO-FIGMA MAPPING table.

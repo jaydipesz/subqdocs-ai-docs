@@ -1,6 +1,6 @@
 # Skill: Codebase Audit
 
-**Canonical audit procedure:** When running inside CW2, CW2 steps supersede this skill's steps. Use this skill only for standalone audits outside the MASTER workflow.
+**Canonical audit procedure:** When running inside CW2, CW2 steps supersede this skill's steps. Use this skill only for standalone audits outside the FEATURE-IMPLEMENTATION-MASTER workflow.
 
 ## Purpose
 Systematically identify reusable code, existing patterns, and relevant infrastructure before planning a new feature, preventing wasted effort from rebuilding what already exists and from assuming libraries without checking.

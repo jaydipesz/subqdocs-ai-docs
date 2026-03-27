@@ -65,12 +65,12 @@ Do not write any code or produce any artifact until intake and bootstrap are bot
 
 | #  | Name                    | File                                  | Trigger                    | Output Artifact                |
 |----|-------------------------|---------------------------------------|----------------------------|--------------------------------|
-| 1  | Figma Analysis          | `CW1-figma-analysis.md`              | Always runs first          | FIGMA ANALYSIS REPORT          |
-| 2  | Codebase Audit          | `CW2-codebase-audit.md`              | After CW1 confirmed        | AUDIT REPORT                   |
-| 3  | Plan                    | `CW3-plan.md`                        | After CW2 confirmed        | IMPLEMENTATION PLAN            |
-| 4  | Backend Implementation  | `CW4-backend-implementation.md`      | After CW3 confirmed        | API CONTRACT DOCUMENT          |
-| 5  | Frontend Implementation | `CW5-frontend-implementation.md`     | After CW4 confirmed        | COMPONENT-TO-FIGMA MAPPING     |
-| 5A | UI Verification         | `CW5A-ui-verification.md`            | Immediately after CW5      | UI VERIFICATION REPORT         |
+| 1  | Figma Analysis          | `CW1-figma-to-specs.md`              | Always runs first          | FIGMA ANALYSIS REPORT          |
+| 2  | Codebase Audit          | `CW2-pattern-audit.md`               | After CW1 confirmed        | AUDIT REPORT                   |
+| 3  | Plan                    | `CW3-implementation-roadmap.md`       | After CW2 confirmed        | IMPLEMENTATION PLAN            |
+| 4  | Backend Implementation  | `CW4-backend-build.md`              | After CW3 confirmed        | API CONTRACT DOCUMENT          |
+| 5  | Frontend Implementation | `CW5-frontend-build.md`             | After CW4 confirmed        | COMPONENT-TO-FIGMA MAPPING     |
+| 5A | UI Verification         | `CW5A-final-ui-sync.md`             | Immediately after CW5      | UI VERIFICATION REPORT         |
 
 ## Artifact Registry
 
@@ -103,7 +103,7 @@ The re-entry protocol applies only to CW1–CW5A within the master chain. Utilit
 ## Relation to Utility Workflows
 
 The following workflows in `.agents/workflows/` are **standalone entry points** — they are NOT part of the master chain and can be invoked independently for isolated operations:
-- `add-backend-module.md`, `add-column.md`, `add-crud-endpoint.md`
-- `add-background-job.md`, `add-email.md`, `add-file-upload.md`
-- `add-frontend-page.md`, `add-socket-event.md`
-- `antigravity-pr-review.md`
+- `TOOL-add-backend-module.md`, `TOOL-add-db-column.md`, `TOOL-add-crud-endpoint.md`
+- `TOOL-add-background-job.md`, `TOOL-add-email-template.md`, `TOOL-add-file-upload.md`
+- `TOOL-add-frontend-page.md`, `TOOL-add-socket-event.md`
+- `TOOL-pr-review.md`
