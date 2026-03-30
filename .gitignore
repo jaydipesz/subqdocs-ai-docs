@@ -1,10 +1,1 @@
-migration-history-mcp/
-subqdocs-agent/
-subqdocs-backend/
-subqdocs-frontend/
-final_repro.csv
-timezone_bug_test.csv
-mcp_packages.json
-logs/
-.DS_Store
-node_modules/
+
