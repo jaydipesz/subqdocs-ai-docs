@@ -76,11 +76,15 @@ If any of the three cannot be met, stay silent on that concern.
 
 #### Tone
 
-Write every comment as a senior developer would in a real code review — direct, specific, and human. No robotic headers, no bullet-pointed boilerplate, no meta-commentary about what kind of issue this is. Just describe the problem clearly and show the fix. If a comment naturally fits in one sentence, keep it to one sentence.
+Write every comment as a senior developer would in a real code review — direct, specific, and human.
+- **NEVER** mention internal rule names or numbers (e.g., "Rule 21", "production-rules.md") in the final comments.
+- **NEVER** use robotic headers or bullet-pointed boilerplate.
+- No meta-commentary about what kind of issue this is; just describe the problem clearly and show the fix.
+- If a comment naturally fits in one sentence, keep it to one sentence.
 
 #### Comment content
 
-State the problem and provide a concrete fix. Where a code snippet makes the fix unambiguous, include one. Keep comments focused on a single concern — don't bundle multiple issues into one comment.
+State the problem and provide a concrete fix based on architectural patterns, without revealing the names of the internal guidelines driving the feedback. Where a code snippet makes the fix unambiguous, include one. Keep comments focused on a single concern — don't bundle multiple issues into one comment.
 
 #### Severity (internal logic only — never mention these labels in posted comments)
 
@@ -98,7 +102,7 @@ Use line-specific review comments for every identified issue. Match the `path` a
 
 Before finalising the review, actively scan the changed files for each item — do not just acknowledge them mentally:
 
-- [ ] No breaking API changes or cross-tenant PHI leaks (verify `organization_id` scoping in every query).
+- [ ] No breaking API changes or cross-tenant PHI leaks.
 - [ ] No hard-deletes on models with `paranoid: true`.
 - [ ] No direct `console.log` calls in production code paths.
 - [ ] All HTTP calls use typed Axios wrappers (`axiosGet`, `axiosPost`, etc.) — not raw `axios`.
@@ -128,9 +132,9 @@ Present the review to the user before posting. Show it in this format:
 
 **Summary of findings**
 
-| # | File | Line | Severity | Issue (one line) | Include? |
+| # | File | Line | Severity | Issue (one line - **NO RULE NUMBERS**) | Include? |
 |---|------|------|----------|-----------------|---------|
-| 1 | `src/auth/guard.ts` | 42 | 🟡 Important | Missing `organization_id` check on query | ✅ Yes |
+| 1 | `src/auth/guard.ts` | 42 | 🟡 Important | Missing `user_id` check on query | ✅ Yes |
 | 2 | `src/utils/helper.ts` | 18 | 🔵 Minor | `console.log` left in production code | ✅ Yes |
 | … | | | | | |
 
