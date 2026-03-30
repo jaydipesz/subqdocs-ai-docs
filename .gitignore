@@ -1,1 +1,12 @@
+# Ignore everything in the root by default
+/*
 
+# Whitelist exactly what we want to track
+!/.agents/
+!/.cursor/
+!/.gemini/
+!/.vscode/
+!/docs/
+!/AI-CONTEXT*
+!/projects.code-workspace
+!/.gitignore
