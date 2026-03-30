@@ -2,47 +2,169 @@
 description: Comprehensive Code Review for Pull Requests in Antigravity
 ---
 
+# Comprehensive Code Review for Pull Requests in Antigravity
+
 This workflow performs a structured pull request review, ensuring adherence to Antigravity's architectural patterns and coding standards.
 
-### PR Review Trigger
-Trigger this workflow by saying: "Review PR #[number]" or "Review PR #[number] in antigravity".
+---
 
-### Workflow Steps:
+## PR Review Trigger
 
-1. **Fetch PR details**:
-   - Use `mcp_github-mcp-server_get_pull_request` and `mcp_github-mcp-server_get_pull_request_files`.
-   - Use `mcp_github-mcp-server_get_file_contents` to fetch actual contents. Use `view_file` for local versions.
+Trigger this workflow by saying: `"Review PR #[number]"` or `"Review PR #[number] in antigravity"`.
 
-2. **Project Context Review**:
-   - Read `AI-CONTEXT.md`, `AI-CONTEXT-FRONTEND.md`, and `AI-CONTEXT-BACKEND.md` for standards.
-   - Read `.agents/rules/production-rules.md` for mandatory constraints.
-   - Load relevant `docs/skills/` only if PR touches specific domains (e.g., S3, Sockets).
-   - **Source of Truth**: These files are the primary reference. If a pattern is not covered here, it must follow industry-standard best practices for that specific configuration.
+---
 
-3. **Construct Structured Review**:
-   - **Raise issues ONLY IF 100% certain.** Uncertainty = silence.
-   - **Human-Generated Tone**: Write comments as a professional developer would. Avoid robotic headers or repetitive boilerplate.
-   - **Comment Content**: Briefly state the problem and provide a concrete fix in a natural, technical tone. **Do NOT mention or include the bug category/severity labels (e.g., 🔴 CRITICAL, 🟡 IMPORTANT) in the actual posted comments.**
-   - **Severity Internal Logic**:
-     - 🔴 **CRITICAL** — Proved bug, security breach, or data corruption.
-     - 🟡 **IMPORTANT** — Clear violation of an explicit rule in `AI-CONTEXT*.md` or `production-rules.md`.
-     - 🔵 **MINOR** — Unambiguous factual error (typo, dead code) or clear violation of fallback best practices.
-   - **Placement**: Use line-specific reviews for every identified issue.
+## Workflow Steps
 
-4. **Production Checklist**:
-   - [ ] No breaking API changes or cross-tenant PHI leaks (`organization_id`).
-   - [ ] No hard-deletes (`paranoid: true`) or direct `console.log`.
-   - [ ] Typed Axios wrappers (`axiosGet`, etc.) and `generalResponse` used.
-   - [ ] Follows `HttpException` and `joi` validation patterns.
-   - [ ] No hardcoded secrets or exposed PII/PHI fields.
+### 1. Fetch PR Details
 
-5. **Verdict & Confirmation**:
-   - ✅ **Ready to merge** — No 🔴 CRITICAL issues. IMPORTANT and MINOR items are noted for the author but do not block merge.
-   - 🚫 **Do not merge** — One or more 🔴 CRITICAL issues present.
-   - Show draft to user: *"Here is the review. Modify anything before I post?"*
+- Use `mcp_github-mcp-server_get_pull_request` to get the PR title, description, base/head branches, and metadata.
+- Use `mcp_github-mcp-server_get_pull_request_files` to get the full list of changed files.
+- **If the PR has more than 50 changed files**, apply the triage strategy in the **Large PR Handling** section below before fetching any file contents. Do not attempt to load all files at once.
+- For files selected for review, use `mcp_github-mcp-server_get_file_contents` to fetch their actual contents from GitHub. Use `view_file` only for files already present in the local workspace (e.g. context/config files that aren't part of the diff).
 
-6. **Post Review**:
-   - Once explicitly confirmed, use `mcp_github-mcp-server_create_pull_request_review`.
-   - Post to the correct file and line range using the `comments` array (with `path` and `line` properties).
-   - **IMPORTANT**: If this is a subsequent review on the PR, ensure that new line-specific feedback is still accurately placed on the precise lines via the `comments` array. Do NOT fall back to posting all feedback as a single block in the general review `body`.
-   - The overall verdict and summary go in the general review body.
+---
+
+### 2. Large PR Handling (50+ Changed Files)
+
+When a PR contains more than 50 changed files, context window limits make full review impossible. Apply this prioritization strategy:
+
+**Priority tiers — fetch in this order, stop when context is near capacity:**
+
+| Tier | What to fetch | Why |
+|------|--------------|-----|
+| 1 — Critical path | Controllers, services, middleware, auth, permission guards, route definitions | Highest blast radius if wrong |
+| 2 — Data layer | Models, migrations, repository/query files | Schema and data-integrity risk |
+| 3 — Shared utilities | Helper functions, typed wrappers (axiosGet etc.), shared validators | Cross-cutting impact |
+| 4 — Tests | Test files for anything in Tiers 1–3 | Confirms coverage exists |
+| 5 — Config & infra | Environment configs, CI files, Dockerfiles | Security and deployment risk |
+| Skip unless flagged | Auto-generated files, lock files (package-lock.json, yarn.lock), assets, pure type-definition files with no logic | Low review value |
+
+**After applying tiers**, open your review with a transparent note in the summary body:
+
+> "This PR contains [N] changed files. Due to context limits, this review focused on [list of reviewed files/areas]. Files not reviewed: [brief list or pattern]. A follow-up review of the remaining files is recommended."
+
+---
+
+### 3. Project Context Review
+
+- Read `AI-CONTEXT.md`, `AI-CONTEXT-FRONTEND.md`, and `AI-CONTEXT-BACKEND.md` for standards.
+- Read `.agents/rules/production-rules.md` for mandatory constraints.
+- Load files from `docs/skills/` **only if the PR touches a matching domain**. Use the file list from step 1 to determine relevance before loading:
+
+| If changed files include... | Load this skill |
+|-----------------------------|----------------|
+| S3 upload/download logic, storage paths | `docs/skills/s3.md` |
+| WebSocket, socket.io, real-time events | `docs/skills/sockets.md` |
+| Background jobs, queues, workers | `docs/skills/jobs.md` |
+| Any other domain skill | Match by filename pattern; load only on a clear match |
+
+**Source of truth**: These files are the primary reference. If a pattern is not covered, default to the OWASP Top 10 for security concerns and the existing codebase's dominant conventions for style concerns — not general internet best practices.
+
+---
+
+### 4. Construct the Review
+
+#### Certainty rule
+
+Only raise an issue when you can satisfy **all three** of these:
+1. You can point to a **specific line or block** in the diff.
+2. You can name the **specific rule or standard** it violates (from context files, production rules, or the fallback references above).
+3. The bad outcome is **inevitable from the code as written** — not just possible or theoretically risky.
+
+If any of the three cannot be met, stay silent on that concern.
+
+#### Tone
+
+Write every comment as a senior developer would in a real code review — direct, specific, and human. No robotic headers, no bullet-pointed boilerplate, no meta-commentary about what kind of issue this is. Just describe the problem clearly and show the fix. If a comment naturally fits in one sentence, keep it to one sentence.
+
+#### Comment content
+
+State the problem and provide a concrete fix. Where a code snippet makes the fix unambiguous, include one. Keep comments focused on a single concern — don't bundle multiple issues into one comment.
+
+#### Severity (internal logic only — never mention these labels in posted comments)
+
+- 🔴 **CRITICAL** — The bad outcome is inevitable from the code as written: a proved bug, a security breach, or data corruption. No speculation.
+- 🟡 **IMPORTANT** — A clear, direct violation of an explicit rule in `AI-CONTEXT*.md` or `production-rules.md`, where the rule and the violation are unambiguous.
+- 🔵 **MINOR** — An unambiguous factual error (typo, dead code, wrong variable name) or a clear deviation from fallback best practices when no project rule applies.
+
+#### Placement
+
+Use line-specific review comments for every identified issue. Match the `path` and `line` to the exact location in the diff.
+
+---
+
+### 5. Production Checklist
+
+Before finalising the review, actively scan the changed files for each item — do not just acknowledge them mentally:
+
+- [ ] No breaking API changes or cross-tenant PHI leaks (verify `organization_id` scoping in every query).
+- [ ] No hard-deletes on models with `paranoid: true`.
+- [ ] No direct `console.log` calls in production code paths.
+- [ ] All HTTP calls use typed Axios wrappers (`axiosGet`, `axiosPost`, etc.) — not raw `axios`.
+- [ ] All responses use `generalResponse` — no ad-hoc response shapes.
+- [ ] Errors thrown via `HttpException` — not generic `Error` or silent catches.
+- [ ] All input validated with `joi` — no unvalidated `req.body` access.
+- [ ] No hardcoded secrets, tokens, or credentials anywhere in the diff.
+- [ ] No PII/PHI fields exposed in response payloads or logged.
+
+---
+
+### 6. Verdict & Confirmation Draft
+
+Present the review to the user before posting. Show it in this format:
+
+---
+
+**Draft Review — PR #[number]**
+
+*[If large PR: brief note on which files were reviewed and which were skipped.]*
+
+**Verdict**: ✅ Ready to merge / 🚫 Do not merge
+
+*[One or two sentences summarising the overall state of the PR — what it does well and what the critical blockers are, if any.]*
+
+---
+
+**Summary of findings**
+
+| # | File | Line | Severity | Issue (one line) | Include? |
+|---|------|------|----------|-----------------|---------|
+| 1 | `src/auth/guard.ts` | 42 | 🟡 Important | Missing `organization_id` check on query | ✅ Yes |
+| 2 | `src/utils/helper.ts` | 18 | 🔵 Minor | `console.log` left in production code | ✅ Yes |
+| … | | | | | |
+
+*Check or uncheck any row before confirming. Say "remove #2" or "post it" to proceed.*
+
+---
+
+> "Here is the draft review. Remove any items from the table you don't want posted, or say 'post it' to submit as-is."
+
+---
+
+**Verdict comment on the PR**
+
+Post a verdict summary **only if** there are 🔴 CRITICAL issues. In that case, include one short paragraph in the general review body explaining what blocks the merge and why. If there are no CRITICAL issues, the general review body should be empty or contain only the large-PR coverage note — do not add a verdict comment for IMPORTANT or MINOR findings. Those speak for themselves in the line comments.
+
+---
+
+### 7. Post Review
+
+Once the user explicitly confirms (or removes specific items):
+
+- Use `mcp_github-mcp-server_create_pull_request_review` to post.
+- Every confirmed finding goes in the `comments` array with its correct `path` and `line`. Do not collapse them into the general `body`.
+- The general review `body` contains: the large-PR coverage note (if applicable) and the CRITICAL verdict paragraph (if applicable). Nothing else.
+- **For subsequent reviews on the same PR**: line-specific placement via the `comments` array is mandatory even if only one item is being posted. Never fall back to a single block comment for a re-review.
+
+---
+
+## Quick Reference: What Goes Where
+
+| Content | Where it goes |
+|---------|--------------|
+| Individual code issue | `comments` array — line-specific |
+| CRITICAL blocker explanation | General review `body` |
+| Large-PR coverage note | General review `body` |
+| IMPORTANT / MINOR findings | `comments` array only — no body summary |
+| Verdict emoji (✅ / 🚫) | General review `body` — only when CRITICAL issues exist |
