@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "projects (parent)"
+    },
+    {
+      "path": "subqdocs-frontend",
+      "name": "subqdocs-frontend"
+    },
+    {
+      "path": "subqdocs-backend",
+      "name": "subqdocs-backend"
+    }
+  ],
+  "settings": {
+    "git.autoRepositoryDetection": "subFolders",
+    "git.repositoryScanMaxDepth": 4,
+    "git.repositoryScanIgnoredFolders": true
+  }
+}

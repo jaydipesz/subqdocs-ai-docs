@@ -5,7 +5,9 @@ description: Mandatory rules for PHI, API, and frontend patterns.
 
 # Workspace Rules
 
-1. **[CANONICAL — referenced by Skills 01, 10]** Every query on `patients`, `patient_visits`, or any clinical table MUST include `organization_id: loggedInUser.organization_id` in the WHERE clause — omitting it leaks PHI across tenants.
+1. Always include `organization_id = loggedInUser.organization_id` in queries on
+clinical tables. It may be omitted only when querying by a guaranteed globally
+unique primary key returning a single record, and the exception is documented.
 2. Never return raw Sequelize model instances from a controller — call `parse(model)` from `@utils/common.utils` before passing data to `generalResponse()`.
 3. Never hard-delete rows in `patients` or `patient_visits` — both use `paranoid: true`; use the repository `deleteData` function which sets `deleted_at`.
 4. Never expose `password`, `otp`, `pin`, `token`, `secret_2fa`, `optum_password`, or `optum_username` in any API response, log output, socket event, or email subject.
