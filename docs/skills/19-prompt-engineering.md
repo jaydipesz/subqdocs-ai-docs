@@ -402,9 +402,9 @@ All workflows are defined in `src/common/latest-agents/workflow/stateGraphWorkfl
 
 | Graph | Variable | Purpose | Entrypoint |
 |-------|----------|---------|------------|
-| **Main workflow** | `workflow` (line ~149) | Full transcript processing pipeline | `executeWorkflow()` |
-| **Partial workflow** | `partialWorkFlow` (line ~207) | Template-based re-runs | `executePartialWorkflow()` |
-| **Continue workflow** | `newWorkflow` (line ~244) | Chatbot edits, corrections, validation | `newExecuteWorkflow()` |
+| **Main workflow** | `workflow` | Full transcript processing pipeline | `executeWorkflow()` |
+| **Partial workflow** | `partialWorkFlow` | Template-based re-runs | `executePartialWorkflow()` |
+| **Continue workflow** | `newWorkflow` | Chatbot edits, corrections, validation | `newExecuteWorkflow()` |
 
 ### Adding a New Node to the Main Workflow
 
@@ -436,7 +436,11 @@ If the new section should be editable via the chatbot:
 
 1. **`preValidationPrompt.ts`** → Add the section name + sub-sections to the `MAIN SECTIONS AND THEIR SUB-SECTIONS` list.
 2. **`outputStructures.ts`** → Add the section's JSON template to `EditJsonStructures`.
-3. **`editJourney` agent node** → Add the section to the section-handler map so the edit journey knows how to invoke it.
+3. **`sectionInstructionPrompt.ts`** → Add the section to the `SectionInstructions` map. This map pairs each section name with its **legacy static prompt** export (e.g., `CancerHistoryPrompt`):
+   ```typescript
+   MY_SECTION: `## **HIGH PRIORITY EDIT INSTRUCTION** ${editInstruction}\n ${MySectionPrompt}`
+   ```
+   > **Note:** `SectionInstructions` uses the legacy `export const` prompts, not the factory functions. If you create a new section, you must also export a static version (or keep the existing legacy export) for this map.
 4. **Validation schema** → Place in `src/common/latest-agents/validation_schema/<section>.schema.ts`. Export a function that returns both a `"validation"` schema and an `"llm"` (structured output) schema.
 
 ---
@@ -546,7 +550,10 @@ ${extraUserInstruction?.[sectionKey] ? `
 3. **Provided Data** — sole source of truth
 
 ## Return your output as valid JSON:
-${formatRules[formatSettings?.[sectionKey]?.toLowerCase() ?? "bullet points"]}
+{
+  "[field_1]": "<description of expected value or fallback HTML>",
+  "[field_2]": "<description of expected value or fallback HTML>"
+}
 
 STRICT RULES:
 - Do NOT infer or assume.
@@ -587,3 +594,62 @@ STRICT RULES:
 | Hardcoding tone as "Professional" | Use `formatSettings?.tone ?? "Professional"` |
 | Forgetting to close HTML tags | Add "Ensure all HTML tags are properly opened and closed" |
 | No validation schema for retry loop | Always define dual-mode schema in `validation_schema/` |
+
+---
+
+## 20. Continue-Recording / Re-Run Pattern
+
+When a node supports **continue recording** (`isContinueRecording`) or **re-runs** (`PastDataDetails`), the agent node must:
+
+### 20.1 Import and Append `ReRunExtraInstructions`
+
+```typescript
+import { ReRunExtraInstructions } from "@common/latest-agents/prompts/reRunExtraInstructions";
+
+const prompt = PastDataDetails
+  ? `${dynamicPrompt} /n ${ReRunExtraInstructions}`
+  : dynamicPrompt;
+```
+
+`ReRunExtraInstructions` provides universal merge rules:
+- Preserve ALL old data — no deletion, no overwriting unless explicitly contradicted
+- Generate from scratch if `OLD_GENERATED_DATA` is null/empty
+- Merge new data into existing structure
+
+### 20.2 Build Dual-Path Payloads
+
+```typescript
+const payload = PastDataDetails
+  ? `
+    <OLD_GENERATED_DATA>
+      ${JSON.stringify(removeHtmlFromObject(PastDataDetails?.[0]?.my_field))}
+    </OLD_GENERATED_DATA>
+    <OLD_TRANSCRIPT>${JSON.stringify(oldTranscript)}</OLD_TRANSCRIPT>
+    <EXTENDED_TRANSCRIPT>
+      ${JSON.stringify(isContinueRecording ? newTranscript : cleanedTranscript)}
+    </EXTENDED_TRANSCRIPT>
+  `
+  : `
+    <transcript>${JSON.stringify(cleanedTranscript)}</transcript>
+    <past_data>${JSON.stringify(pastData)}</past_data>
+  `;
+```
+
+### 20.3 Extract Section Settings
+
+Every agent node extracts `formatSettings` / `extraUserInstruction` from `sectionSettingsData` using:
+
+```typescript
+import { getSectionSettingsForName } from "@utils/common.utils";
+
+const section_setting = getSectionSettingsForName(sectionSettingsData, "Section Display Name");
+const formatSettings = {
+  my_section: section_setting.format,
+  tone: section_setting.tone,
+};
+const extraUserInstruction = {
+  my_section: section_setting.custom_instructions,
+};
+```
+
+> The first argument is `sectionSettingsData` from the workflow state. The second argument is the **human-readable section name** (e.g., `"Cancer History"`, `"Impression and Plan"`, `"Review of System"`).
