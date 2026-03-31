@@ -1,0 +1,8 @@
+---
+description: SubQDocs frontend — domain features (pages, domain hooks, domain UI)
+globs:
+  - subqdocs-frontend/src/domains/**/*
+alwaysApply: false
+---
+
+When editing `subqdocs-frontend/src/domains/`, open [`docs/kb/subqdocs-frontend/INDEX.md`](../../docs/kb/subqdocs-frontend/INDEX.md) and the matching `domains/<domain>.md`. Follow [`docs/kb/frontend/conventions.md`](../../docs/kb/frontend/conventions.md) and [`docs/kb/project/overview.md`](../../docs/kb/project/overview.md). Server state via TanStack Query; routes only in `src/constants/routePath.tsx`.

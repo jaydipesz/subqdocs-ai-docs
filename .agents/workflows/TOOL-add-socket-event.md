@@ -2,7 +2,9 @@
 description: Add a real-time socket event end-to-end (backend handler + frontend listener)
 ---
 
-1. Read `docs/skills/06-socket-events.md` for room name formats and handler placement rules.
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
+1. Read `docs/skills/06-realtime-socket-events.md` for room name formats and handler placement rules.
 
 2. Ask the user for:
    - Event name (e.g. `visitStatusUpdated`)
@@ -22,10 +24,16 @@ description: Add a real-time socket event end-to-end (backend handler + frontend
    - `socket.on('<eventName>', handler)` in `useEffect`
    - `socket.off('<eventName>')` in the cleanup return
 
-6. Validate:
+6. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit
 ```
 
-7. Report the event name, room format, and files modified.
+7. **Verification:** Run `npx tsc --noEmit` in `subqdocs-frontend/` if step 5 changed React code. Do not report complete until exit code 0.
+// turbo
+```bash
+cd subqdocs-frontend && npx tsc --noEmit
+```
+
+8. Report the event name, room format, and files modified.

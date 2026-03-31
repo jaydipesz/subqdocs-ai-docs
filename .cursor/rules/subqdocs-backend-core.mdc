@@ -1,0 +1,16 @@
+---
+description: SubQDocs backend — app boot, config, common, middlewares, socket, tests
+globs:
+  - subqdocs-backend/src/common/**/*
+  - subqdocs-backend/src/config/**/*
+  - subqdocs-backend/src/middlewares/**/*
+  - subqdocs-backend/src/lib/**/*
+  - subqdocs-backend/src/socket/**/*
+  - subqdocs-backend/src/tests/**/*
+  - subqdocs-backend/src/socket.ts
+  - subqdocs-backend/src/app.ts
+  - subqdocs-backend/src/server.ts
+alwaysApply: false
+---
+
+When editing boot, shared utilities, or socket code, open [`docs/kb/subqdocs-backend/INDEX.md`](../../docs/kb/subqdocs-backend/INDEX.md), then [`entry-points.md`](../../docs/kb/subqdocs-backend/entry-points.md) or [`common.md`](../../docs/kb/subqdocs-backend/common.md) as needed. ENV access only via [`docs/kb/backend/conventions.md`](../../docs/kb/backend/conventions.md) / `config/index.ts`. Socket handlers belong in `socket.ts` / `socket/` per backend KB.

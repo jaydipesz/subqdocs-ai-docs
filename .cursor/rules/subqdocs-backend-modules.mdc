@@ -1,0 +1,11 @@
+---
+description: SubQDocs backend — feature modules (routes, controllers, validation, services)
+globs:
+  - subqdocs-backend/src/modules/**/*
+alwaysApply: false
+---
+
+When editing `subqdocs-backend/src/modules/`, open [`docs/kb/subqdocs-backend/INDEX.md`](../../docs/kb/subqdocs-backend/INDEX.md) and the matching `modules/<domain>.md` if present. Follow [`docs/kb/backend/conventions.md`](../../docs/kb/backend/conventions.md) and [`docs/skills/INDEX.md`](../../docs/skills/INDEX.md) for the operation.
+
+- Route files must export a factory `(): Router => { ... }` (picked up by `server.ts`).
+- All controller responses through `generalResponse()`; use `parse()` before responses; scope clinical data with `organization_id` per [`.agents/rules/production-rules.md`](../../.agents/rules/production-rules.md).

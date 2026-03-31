@@ -1,0 +1,14 @@
+---
+description: When creating or updating code (including hooks), update the matching KB under docs/kb in the same task
+alwaysApply: true
+---
+
+# Documentation and KB updates
+
+**Last reviewed:** 2026-03-31
+
+Substantive **create or update** work is not complete until related **documentation** under `docs/kb/` is updated.
+
+**Required:** Follow [`docs/kb/maintenance.md`](../../docs/kb/maintenance.md) for what to update by change type (backend module, frontend domain, hooks, routes, cross-cutting rules) and **out-of-scope** cases.
+
+**Before marking a feature complete:** Ask the user whether anything beyond [`maintenance.md`](../../docs/kb/maintenance.md) should be updated — for example a new [`.cursor/rules/`](../../.cursor/rules/) scoped rule, a new KB page, or an entry in [`docs/kb/anti-patterns.md`](../../docs/kb/anti-patterns.md).

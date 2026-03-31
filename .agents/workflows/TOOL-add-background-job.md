@@ -2,7 +2,9 @@
 description: Add a background job with BullMQ queue + worker + server.ts registration
 ---
 
-1. Read `docs/skills/07-add-background-job.md` for the exact BullMQ pattern and `lockDuration` rules.
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
+1. Read `docs/skills/07-bullmq-background-jobs.md` for the exact BullMQ pattern and `lockDuration` rules.
 
 2. Ask the user for:
    - Job name (e.g. `generate-report`, `sync-ema-data`)
@@ -26,7 +28,7 @@ description: Add a background job with BullMQ queue + worker + server.ts registr
 
 5. **Security:** Verify the job payload does not contain `password`, `token`, `otp`, `pin`, `secret_2fa`, or raw Sequelize model instances.
 
-6. Validate:
+6. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit

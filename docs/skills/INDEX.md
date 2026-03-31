@@ -1,5 +1,7 @@
 # SubQDocs Skills Index
 
+**Project knowledge base:** architecture, stack conventions, per-app deep docs (`subqdocs-frontend`, `subqdocs-backend`), hooks, and maintenance rules live under **[`../kb/README.md`](../kb/README.md)**. Use that tree for *what/where*; use this index for *how-to* checklists.
+
 An agent should load a skill before acting when any trigger phrase below matches the task.
 
 > **Matching rule:** If the user's request contains ANY of the listed trigger phrases as a substring (case-insensitive), load the corresponding skill BEFORE acting. When in doubt, load the skill — false positives (loading an unnecessary skill) are cheaper than false negatives (missing a critical checklist).
@@ -8,8 +10,30 @@ An agent should load a skill before acting when any trigger phrase below matches
 
 ---
 
-| # | File | Agent trigger phrases | Depends on | What it prevents |
-|---|---|---|---|---|
+## Antigravity workflows ↔ skills
+
+Use with [FEATURE-IMPLEMENTATION-MASTER.md](../../.agents/workflows/FEATURE-IMPLEMENTATION-MASTER.md) and standalone [TOOL-*.md](../../.agents/workflows/) workflows.
+
+| Workflow file | Primary skill(s) |
+|-----------------|-------------------|
+| `CW1-figma-to-specs.md` | 12 |
+| `CW2-pattern-audit.md` | 13, 18 |
+| `CW3-implementation-roadmap.md` | 17 (when migrations / schema changes are planned) |
+| `CW4-backend-build.md` | 14, 17 |
+| `CW5-frontend-build.md` | 15 |
+| `CW5A-final-ui-sync.md` | 12, 16 |
+| `TOOL-add-backend-module.md` | 01 |
+| `TOOL-add-crud-endpoint.md` | 01, 10, 11 |
+| `TOOL-add-db-column.md` | 17 |
+| `TOOL-add-file-upload.md` | 04 |
+| `TOOL-add-socket-event.md` | 06 |
+| `TOOL-add-frontend-page.md` | 02, 05, 11 |
+| `TOOL-add-background-job.md` | 07 |
+| `TOOL-add-email-template.md` | 08 |
+| `TOOL-pr-review.md` | Match PR changes to rows in the table below via trigger phrases |
+
+---
+
 | # | File | Agent trigger phrases | Depends on | What it prevents |
 |---|---|---|---|---|
 | 01 | [01-backend-module-scaffolding.md](./01-backend-module-scaffolding.md) | "add a new backend endpoint", "create a new API route", "add a new database table", "create a new module", "new backend feature" | — | Unprotected routes, cross-tenant data access, missing model registration, hard-delete of clinical data |

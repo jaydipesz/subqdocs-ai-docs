@@ -2,9 +2,11 @@
 description: Scaffold a complete backend module (migration → model → repo → validation → controller → route → server.ts registration)
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 // turbo-all
 
-1. Read `docs/skills/01-add-backend-module.md` for the full pattern.
+1. Read `docs/skills/01-backend-module-scaffolding.md` for the full pattern.
 
 2. Ask the user for:
    - Table name (snake_case plural, e.g. `lab_results`)
@@ -40,7 +42,7 @@ cd subqdocs-backend && npm run migrate
 
 13. Register the route in `src/server.ts` — add `ModuleRoute()` to the `apiRoutes` array.
 
-14. Validate by running:
+14. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 ```bash
 cd subqdocs-backend && npx tsc --noEmit
 ```

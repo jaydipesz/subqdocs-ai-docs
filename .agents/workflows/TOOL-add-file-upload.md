@@ -2,7 +2,9 @@
 description: Add a file upload endpoint end-to-end (Multer route + S3 upload + signed URL storage)
 ---
 
-1. Read `docs/skills/04-s3-file-upload.md` for bucket rules and the Multer bypass requirement.
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
+1. Read `docs/skills/04-s3-multipart-upload.md` for bucket rules and the Multer bypass requirement.
 
 2. Ask the user for:
    - What entity the file belongs to (patient attachment, org logo, user profile, eFax)
@@ -30,10 +32,16 @@ description: Add a file upload endpoint end-to-end (Multer route + S3 upload + s
    ```
    Never set `Content-Type` manually.
 
-7. Validate:
+7. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit
 ```
 
-8. Report the upload path, S3 key prefix, and files modified.
+8. **Verification:** Run `npx tsc --noEmit` in `subqdocs-frontend/` if step 6 changed API code. Do not report complete until exit code 0.
+// turbo
+```bash
+cd subqdocs-frontend && npx tsc --noEmit
+```
+
+9. Report the upload path, S3 key prefix, and files modified.

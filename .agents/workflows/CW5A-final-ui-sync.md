@@ -2,6 +2,8 @@
 description: CW5A — Pixel-perfect comparison between code and Figma.
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # CW5A — UI Verification
 
 ## Purpose
@@ -19,13 +21,14 @@ Immediately after CW5 completes. Mandatory. Cannot be skipped.
 
 1. Open the Figma file using Figma MCP with the file key from `FIGMA_URL`.
 2. Load the **COMPONENT-TO-FIGMA MAPPING** table.
-3. For each component row in the mapping table, navigate to the Figma node using the Node ID column, then load `docs/skills/16-ui-verification.md` and follow its steps 4–12 (Layout, Elements, Typography, Colors, Icons, States, Interactions).
+3. For each component row in the mapping table, navigate to the Figma node using the Node ID column, then load `docs/skills/16-pixel-perfect-ui-verification.md` and follow its steps 4–12 (Layout, Elements, Typography, Colors, Icons, States, Interactions).
 
-### Mismatch Fix Protocol
-13. For every mismatch found in steps 4–12:
-    a. Record: component name, Figma screen name, Figma element, expected value, actual value.
-    b. Fix the code immediately.
-    c. Re-verify the fix matches Figma before moving to the next component.
+4. **Mismatch fix protocol:** For every mismatch found in skill steps 4–12:
+   - Record: component name, Figma screen name, Figma element, expected value, actual value.
+   - Fix the code immediately.
+   - Re-verify the fix matches Figma before moving to the next component.
+
+5. **Verification:** Run `npx tsc --noEmit` in `subqdocs-frontend/` after fixes. Do not produce **Output** until exit code 0.
 
 ## Output
 **UI VERIFICATION REPORT** with this format per component:
@@ -49,5 +52,5 @@ Figma Screen: [name] ([node ID])
 Every component in the mapping table verified. All mismatches fixed. Report produced. User replies **"confirmed"**. Feature is complete.
 
 ## Skills Required
-- `docs/skills/16-ui-verification.md`
-- `docs/skills/12-figma-extraction.md`
+- `docs/skills/16-pixel-perfect-ui-verification.md`
+- `docs/skills/12-figma-design-extraction.md`

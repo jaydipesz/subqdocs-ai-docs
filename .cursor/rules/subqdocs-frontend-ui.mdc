@@ -1,0 +1,10 @@
+---
+description: SubQDocs frontend — shared components and assets
+globs:
+  - subqdocs-frontend/src/components/**/*
+  - subqdocs-frontend/src/assets/**/*
+  - subqdocs-frontend/src/images/**/*
+alwaysApply: false
+---
+
+When editing shared UI, open [`docs/kb/subqdocs-frontend/shared-ui.md`](../../docs/kb/subqdocs-frontend/shared-ui.md) and [`docs/kb/frontend/conventions.md`](../../docs/kb/frontend/conventions.md). SVG icons only in `src/components/common/svg/Svg.tsx`.

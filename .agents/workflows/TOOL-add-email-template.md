@@ -2,7 +2,9 @@
 description: Add a transactional email with Handlebars template and fire-and-forget sendEmail
 ---
 
-1. Read `docs/skills/08-send-email.md` for the fire-and-forget rule and template variable conventions.
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
+1. Read `docs/skills/08-transactional-email-service.md` for the fire-and-forget rule and template variable conventions.
 
 2. Ask the user for:
    - Email purpose (invitation, password reset, notification, etc.)
@@ -21,7 +23,7 @@ description: Add a transactional email with Handlebars template and fire-and-for
    - Guard the recipient email: check non-null, non-empty string before sending
    - Log an error if email can't be sent
 
-5. Validate:
+5. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit

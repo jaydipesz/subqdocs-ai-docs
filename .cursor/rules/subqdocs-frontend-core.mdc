@@ -1,0 +1,24 @@
+---
+description: SubQDocs frontend — API layer, routes registry, Redux, hooks, app shell
+globs:
+  - subqdocs-frontend/src/api/**/*
+  - subqdocs-frontend/src/constants/**/*
+  - subqdocs-frontend/src/contexts/**/*
+  - subqdocs-frontend/src/helper/**/*
+  - subqdocs-frontend/src/hooks/**/*
+  - subqdocs-frontend/src/redux/**/*
+  - subqdocs-frontend/src/routes/**/*
+  - subqdocs-frontend/src/lib/**/*
+  - subqdocs-frontend/src/services/**/*
+  - subqdocs-frontend/src/types/**/*
+  - subqdocs-frontend/src/utils/**/*
+  - subqdocs-frontend/src/schema/**/*
+  - subqdocs-frontend/src/main.tsx
+  - subqdocs-frontend/src/App.tsx
+  - subqdocs-frontend/src/App.css
+  - subqdocs-frontend/src/index.css
+  - subqdocs-frontend/src/vite-env.d.ts
+alwaysApply: false
+---
+
+When editing API, routing, global state, or app entry, open [`docs/kb/subqdocs-frontend/INDEX.md`](../../docs/kb/subqdocs-frontend/INDEX.md), [`routing-and-state.md`](../../docs/kb/subqdocs-frontend/routing-and-state.md), or [`entry-points.md`](../../docs/kb/subqdocs-frontend/entry-points.md). Use typed `axios*` wrappers from `src/api/`; lazy loads via `lazyWithRetry()`. Cross-check [`docs/kb/subqdocs-backend/INDEX.md`](../../docs/kb/subqdocs-backend/INDEX.md) when changing API contracts.

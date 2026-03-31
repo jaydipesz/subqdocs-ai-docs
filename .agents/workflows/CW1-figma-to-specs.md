@@ -2,6 +2,8 @@
 description: CW1 — Extract every screen, state, and interaction from Figma.
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # CW1 — Figma Analysis
 
 ## Purpose
@@ -34,6 +36,8 @@ Always runs first in the master workflow.
 15. Identify reusable components: elements that appear on multiple screens with the same structure. Group them and list where each is used.
 16. If any screen, state, field, or visual detail is ambiguous — **stop and ask**. Do not infer intent. Do not proceed until the ambiguity is resolved.
 
+17. **Verification:** Confirm every in-scope screen from `TARGET_SCREENS` appears in the report with node IDs. Do not produce **Output** until this check passes.
+
 ## Output
 **FIGMA ANALYSIS REPORT** containing these exact sections:
 1. Screen Inventory — name, purpose, node ID per screen
@@ -48,4 +52,4 @@ Always runs first in the master workflow.
 Report is complete. All ambiguities resolved. User replies **"confirmed"**. Do not proceed to CW2 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/12-figma-extraction.md`
+- `docs/skills/12-figma-design-extraction.md`

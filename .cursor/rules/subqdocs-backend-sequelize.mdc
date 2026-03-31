@@ -1,0 +1,11 @@
+---
+description: SubQDocs backend — Sequelize (models, migrations, repositories, seeders)
+globs:
+  - subqdocs-backend/src/sequelize/**/*
+alwaysApply: false
+---
+
+When editing `subqdocs-backend/src/sequelize/`, open [`docs/kb/subqdocs-backend/INDEX.md`](../../docs/kb/subqdocs-backend/INDEX.md) and [`docs/kb/subqdocs-backend/sequelize.md`](../../docs/kb/subqdocs-backend/sequelize.md). Follow [`docs/kb/backend/conventions.md`](../../docs/kb/backend/conventions.md). Load [`docs/skills/17-database-migration-safety.md`](../../docs/skills/17-database-migration-safety.md) before ALTER TABLE migrations.
+
+- Register new models in `sequelize/models/index.ts`.
+- Prefer `paranoid: true` and soft deletes for patient/clinical tables per production rules.

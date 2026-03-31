@@ -2,6 +2,8 @@
 description: CW2 — Audit the codebase for reusable patterns and best-practice violations.
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # CW2 — Codebase Audit
 
 ## Purpose
@@ -39,9 +41,11 @@ After CW1 is confirmed by the user.
 14. Open `src/constants/routePath.tsx`. List every route entry in the same domain area.
 
 ### Best Practice Audit
-15. For each file found in steps 1–14, run the `violation-audit` skill (`docs/skills/18-violation-audit.md`). Limit to: only the TypeScript violations (steps 1–4) and the category-specific violations (Backend steps 5–14 for backend files, Frontend steps 15–23 for frontend files). Do not cross-apply categories.
+15. For each file found in steps 1–14, run the `violation-audit` skill (`docs/skills/18-standard-violation-audit.md`). Limit to: only the TypeScript violations (steps 1–4) and the category-specific violations (Backend steps 5–14 for backend files, Frontend steps 15–23 for frontend files). Do not cross-apply categories.
 16. Log every violation found using the violation-audit output format: file, line, category, violation type, description.
 17. Do not replicate any logged violation in new code.
+
+18. **Verification:** Confirm the **AUDIT REPORT** has all three sections (Backend Audit, Frontend Audit, Violation Log) with file paths where applicable. Do not produce **Output** until complete.
 
 ## Output
 **AUDIT REPORT** with these exact sections:
@@ -53,5 +57,5 @@ After CW1 is confirmed by the user.
 Audit report is complete. User replies **"confirmed"**. Do not proceed to CW3 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/13-codebase-audit.md`
-- `docs/skills/18-violation-audit.md`
+- `docs/skills/13-reusable-codebase-audit.md`
+- `docs/skills/18-standard-violation-audit.md`

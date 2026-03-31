@@ -1,19 +1,20 @@
-# SubQDocs — AI Context (Root)
+# SubQDocs — Project overview (shared)
 
-This is the **shared bridge document** — what crosses both sides of the system.  
-For side-specific details, go to the dedicated files:
+Shared engineering context — what crosses both sides of the system.  
+For stack-specific detail, use the dedicated files:
 
-| Context | File |
+| Topic | File |
 |---|---|
-| 🖥 Frontend | [`AI-CONTEXT-FRONTEND.md`](AI-CONTEXT-FRONTEND.md) |
-| ⚙️ Backend | [`AI-CONTEXT-BACKEND.md`](AI-CONTEXT-BACKEND.md) |
-| 🔧 Skills | [`docs/skills/INDEX.md`](docs/skills/INDEX.md) |
+| Architecture (diagram + landmarks) | [`architecture.md`](./architecture.md) |
+| Frontend | [`../frontend/conventions.md`](../frontend/conventions.md) |
+| Backend | [`../backend/conventions.md`](../backend/conventions.md) |
+| Skills (how-to) | [`../../skills/INDEX.md`](../../skills/INDEX.md) |
 
 > **Skills:** Before performing a specific operation, load the relevant skill from `docs/skills/`. Each skill covers one operation end-to-end.
 
 ---
 
-# Project
+# Product
 
 SubQDocs is a **medical practice management platform** for doctors and clinical staff. It unifies:
 
@@ -30,10 +31,10 @@ SubQDocs is a **medical practice management platform** for doctors and clinical 
 
 ---
 
-# Architecture Overview
+# Architecture overview
 
-1. **Frontend** triggers action → API call via typed Axios wrappers (see `AI-CONTEXT-FRONTEND.md`)
-2. **Backend** receives via Express → middleware chain → controller → PostgreSQL via Sequelize (see `AI-CONTEXT-BACKEND.md`)
+1. **Frontend** triggers action → API call via typed Axios wrappers (see [`../frontend/conventions.md`](../frontend/conventions.md))
+2. **Backend** receives via Express → middleware chain → controller → PostgreSQL via Sequelize (see [`../backend/conventions.md`](../backend/conventions.md))
 3. **Response** via `generalResponse()` → Axios interceptor handles 401/404 globally
 
 ### Real-Time Sync
@@ -41,16 +42,16 @@ SubQDocs is a **medical practice management platform** for doctors and clinical 
 Socket.io server in `subqdocs-backend/src/socket.ts`, attached to the same HTTP server as Express.  
 Auth: token from handshake → decoded → `user.token === dbUser.token` (single-session enforcement).  
 Public namespace `/chatbot` (no auth) — patient-facing chatbot.  
-→ See [`docs/skills/06-socket-events.md`](docs/skills/06-socket-events.md) for room names, handlers, emit patterns.
+→ See [`../../skills/06-realtime-socket-events.md`](../../skills/06-realtime-socket-events.md) for room names, handlers, emit patterns.
 
 ### File Uploads
 
-→ See [`docs/skills/04-s3-file-upload.md`](docs/skills/04-s3-file-upload.md) for S3, multipart, eFax, Multer bypass.
+→ See [`../../skills/04-s3-multipart-upload.md`](../../skills/04-s3-multipart-upload.md) for S3, multipart, eFax, Multer bypass.
 
 ### PDF Generation
 
 Server-side: PDFKit streams to HTTP response or S3.  
-Frontend: PDF.js worker configured in `main.tsx` (see `AI-CONTEXT-FRONTEND.md`).
+Frontend: PDF.js worker configured in `main.tsx` (see [`../frontend/conventions.md`](../frontend/conventions.md)).
 
 ---
 

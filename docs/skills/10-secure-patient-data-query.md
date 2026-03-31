@@ -113,7 +113,7 @@ await deletePatientRepo({
 
 ## PHI fields — never include unless the endpoint explicitly requires them
 
-> See `AI-CONTEXT.md` § PHI Fields for the canonical, comprehensive list.
+> See `docs/kb/project/overview.md` (section **PHI Fields — Never Log or Expose**) for the canonical, comprehensive list.
 
 ```
 patients table:

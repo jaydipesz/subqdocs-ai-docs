@@ -2,6 +2,8 @@
 description: Comprehensive Code Review for Pull Requests in Antigravity
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # Comprehensive Code Review for Pull Requests in Antigravity
 
 This workflow performs a structured pull request review, ensuring adherence to Antigravity's architectural patterns and coding standards.
@@ -48,16 +50,17 @@ When a PR contains more than 50 changed files, context window limits make full r
 
 ### 3. Project Context Review
 
-- Read `AI-CONTEXT.md`, `AI-CONTEXT-FRONTEND.md`, and `AI-CONTEXT-BACKEND.md` for standards.
+- Read `docs/kb/project/overview.md`, `docs/kb/frontend/conventions.md`, and `docs/kb/backend/conventions.md` for standards.
 - Read `.agents/rules/production-rules.md` for mandatory constraints.
-- Load files from `docs/skills/` **only if the PR touches a matching domain**. Use the file list from step 1 to determine relevance before loading:
+- Load files from `docs/skills/` **only if the PR touches a matching domain**. Use the file list from step 1 to determine relevance before loading. For anything not listed below, use trigger phrases in [`docs/skills/INDEX.md`](../../docs/skills/INDEX.md) to pick skills.
 
 | If changed files include... | Load this skill |
 |-----------------------------|----------------|
-| S3 upload/download logic, storage paths | `docs/skills/s3.md` |
-| WebSocket, socket.io, real-time events | `docs/skills/sockets.md` |
-| Background jobs, queues, workers | `docs/skills/jobs.md` |
-| Any other domain skill | Match by filename pattern; load only on a clear match |
+| S3 upload/download logic, storage paths | `docs/skills/04-s3-multipart-upload.md` |
+| WebSocket, socket.io, real-time events | `docs/skills/06-realtime-socket-events.md` |
+| Background jobs, queues, workers | `docs/skills/07-bullmq-background-jobs.md` |
+| Migrations, schema changes | `docs/skills/17-database-migration-safety.md` |
+| Any other domain | Match via [`docs/skills/INDEX.md`](../../docs/skills/INDEX.md); load only on a clear trigger match |
 
 **Source of truth**: These files are the primary reference. If a pattern is not covered, default to the OWASP Top 10 for security concerns and the existing codebase's dominant conventions for style concerns — not general internet best practices.
 
@@ -89,7 +92,7 @@ State the problem and provide a concrete fix based on architectural patterns, wi
 #### Severity (internal logic only — never mention these labels in posted comments)
 
 - 🔴 **CRITICAL** — The bad outcome is inevitable from the code as written: a proved bug, a security breach, or data corruption. No speculation.
-- 🟡 **IMPORTANT** — A clear, direct violation of an explicit rule in `AI-CONTEXT*.md` or `production-rules.md`, where the rule and the violation are unambiguous.
+- 🟡 **IMPORTANT** — A clear, direct violation of an explicit rule in `docs/kb/project/overview.md`, `docs/kb/frontend/conventions.md`, `docs/kb/backend/conventions.md`, or `production-rules.md`, where the rule and the violation are unambiguous.
 - 🔵 **MINOR** — An unambiguous factual error (typo, dead code, wrong variable name) or a clear deviation from fallback best practices when no project rule applies.
 
 #### Placement

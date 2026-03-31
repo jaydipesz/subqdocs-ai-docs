@@ -1,7 +1,11 @@
-# SubQDocs — Frontend Context
+# SubQDocs — Frontend conventions
 
-> **Parent:** [`AI-CONTEXT.md`](AI-CONTEXT.md) — Architecture, Domain Rules, Never Do  
-> **Skills:** [`docs/skills/INDEX.md`](docs/skills/INDEX.md)
+> **Parent:** [`../project/overview.md`](../project/overview.md) — Product, architecture, domain rules, never-do  
+> **Skills:** [`../../skills/INDEX.md`](../../skills/INDEX.md)
+
+## Knowledge base (`subqdocs-frontend`)
+
+Distributed KB (hub, routing/state, shared UI, domain deep docs): **[`../subqdocs-frontend/INDEX.md`](../subqdocs-frontend/INDEX.md)**
 
 ---
 
@@ -18,7 +22,7 @@ Key libraries and why they matter:
 | `@mui/material` + `@mantine/core` | Two component libraries coexist — MUI is primary |
 | `formik` + `yup` | Primary form library — preferred for new forms |
 | `tailwindcss` | Utility CSS for layout and spacing |
-| `socket.io-client` | Real-time via singleton in `src/services/socket.ts` |
+| `socket.io-client` | Real-time via [`lib/socketService.ts`](../../subqdocs-frontend/src/lib/socketService.ts) (singleton) |
 | `react-big-calendar` | Calendar grid in Dashboard |
 
 ---

@@ -2,6 +2,8 @@
 description: CW3 — Create a complete implementation plan before writing code.
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # CW3 — Plan
 
 ## Purpose
@@ -51,6 +53,8 @@ After CW2 is confirmed by the user.
 20. List every place the plan differs from existing codebase patterns found in the AUDIT REPORT.
 21. For each deviation: state the existing pattern (with file path), your pattern, and why yours is better.
 
+22. **Verification:** Re-read **MIGRATION RISK** flags and socket/S3 items if `REAL_TIME` or `FILE_UPLOAD` apply. Do not produce **Output** until risks are addressed or explicitly accepted in the plan.
+
 ## Output
 **IMPLEMENTATION PLAN** with these exact sections: Backend Plan, Frontend Plan, Deviations. End with: **"Plan complete. Confirm to begin implementation."**
 
@@ -58,4 +62,4 @@ After CW2 is confirmed by the user.
 User replies **"confirmed"**. Do not proceed to CW4 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/17-migration-safety.md`
+- `docs/skills/17-database-migration-safety.md`

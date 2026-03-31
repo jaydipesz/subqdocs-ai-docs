@@ -2,6 +2,8 @@
 description: Feature Implementation Master Workflow - End-to-end from Figma to Frontend
 ---
 
+Canonical step format for child workflows: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md).
+
 # Master Workflow — Feature Implementation
 
 Orchestrates end-to-end feature delivery from Figma design to verified frontend, ensuring every artifact is reviewed and confirmed before the next phase begins.
@@ -30,13 +32,7 @@ Orchestrates end-to-end feature delivery from Figma design to verified frontend,
 
 ## Decision-Making Hierarchy
 
-1. `.agents/rules/production-rules.md` — non-negotiable, always wins
-2. Industry best practice — TypeScript, React, Node, Sequelize, SQL
-3. Codebase insight — naming, libraries, reusable code
-4. Context files and skills — project-specific patterns
-5. Child workflows — execution sequence
-
-When 2 and 3 conflict, best practice wins. State the conflict explicitly.
+Follow the **Decision hierarchy** in [`docs/kb/ai-documentation-standards.md`](../../docs/kb/ai-documentation-standards.md#bootstrap-and-decision-order). When industry best practice and codebase patterns conflict, best practice wins — state the conflict explicitly.
 
 ## Intake
 
@@ -52,14 +48,7 @@ If the user says "skip" or "none" for any optional input, use the Default value.
 
 ## Bootstrap
 
-1. Read `.agents/rules/production-rules.md`.
-2. Read `AI-CONTEXT.md`, `AI-CONTEXT-BACKEND.md`, `AI-CONTEXT-FRONTEND.md`.
-3. Read `docs/skills/INDEX.md`.
-4. Read every child workflow file listed in the table below.
-5. Check INDEX.md against what this feature requires. If a skill is missing, **stop and report**: "Missing skill for [operation]. Cannot proceed without: [specific skill requirement]." Do not create skills during the master workflow — skills must be authored and reviewed separately.
-6. Confirm: **"Context loaded. Skills verified. Inputs collected. Missing skills: [list or none]."**
-
-Do not write any code or produce any artifact until intake and bootstrap are both complete.
+Complete **Master workflow bootstrap** in [`docs/kb/ai-documentation-standards.md`](../../docs/kb/ai-documentation-standards.md#master-workflow-bootstrap) (read child workflows from the table below per that section). Do not write any code or produce any artifact until intake and bootstrap are both complete.
 
 ## Child Workflows
 

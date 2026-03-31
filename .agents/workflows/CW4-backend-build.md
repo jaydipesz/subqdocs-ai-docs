@@ -2,6 +2,8 @@
 description: CW4 — Implement the backend in strict dependency order and produce an API contract.
 ---
 
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
 # CW4 — Backend Implementation
 
 ## Purpose
@@ -17,11 +19,12 @@ After CW3 is confirmed by the user.
 
 ## Steps
 
-1. Load `docs/skills/14-backend-implementation.md`. Follow its steps 1–9 using the IMPLEMENTATION PLAN and AUDIT REPORT as inputs.
+1. Load `docs/skills/14-structured-backend-implementation.md`. Follow its steps 1–9 using the IMPLEMENTATION PLAN and AUDIT REPORT as inputs.
 
-### Verification
-2. Run `npx tsc --noEmit` in `subqdocs-backend/`. Fix every type error before proceeding.
+2. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Fix every type error before proceeding. Do not continue until exit code 0.
+
 3. Open the 2 closest modules in `src/modules/` to the one just created (by alphabetical proximity). Compare error message phrasing and match before writing error strings.
+
 4. Produce the **API CONTRACT DOCUMENT**.
 
 ## Output
@@ -39,5 +42,5 @@ End with: **"Backend complete. API contract produced. Confirm to begin frontend.
 `tsc --noEmit` passes. User replies **"confirmed"**. Do not proceed to CW5 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/14-backend-implementation.md`
-- `docs/skills/17-migration-safety.md`
+- `docs/skills/14-structured-backend-implementation.md`
+- `docs/skills/17-database-migration-safety.md`

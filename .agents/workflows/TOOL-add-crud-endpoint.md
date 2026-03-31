@@ -2,7 +2,9 @@
 description: Add a new CRUD endpoint to an existing backend module (controller + validation + route registration)
 ---
 
-1. Read `docs/skills/01-add-backend-module.md` (steps 6–8) and `docs/skills/10-query-patient-data.md`.
+_Formats: [WORKFLOW-FORMAT.md](./WORKFLOW-FORMAT.md)._
+
+1. Read `docs/skills/01-backend-module-scaffolding.md` (steps 6–8) and `docs/skills/10-secure-patient-data-query.md`.
 
 2. Ask the user for:
    - Which existing module (e.g. `patient`, `patient_visit`, `prescription`)
@@ -21,12 +23,18 @@ description: Add a new CRUD endpoint to an existing backend module (controller +
 5. Add the route in the module's `routes/` file inside the existing factory function:
    - Apply middleware chain: `authMiddleware`, `organizationMemberMiddleware` (if needed), `trackDeviceLog`, `userActivityMiddleware`, `validationMiddleware(schema, source)`
 
-6. Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-add-api-service-call.md`.
+6. Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-frontend-api-integration.md`.
 
-7. Validate:
+7. **Verification:** Run `npx tsc --noEmit` in `subqdocs-backend/`. Do not report complete until exit code 0.
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit
 ```
 
-8. Report the endpoint path and the files modified.
+8. **Verification:** If step 6 modified `subqdocs-frontend/`, run `npx tsc --noEmit` there until exit code 0.
+// turbo
+```bash
+cd subqdocs-frontend && npx tsc --noEmit
+```
+
+9. Report the endpoint path and the files modified.

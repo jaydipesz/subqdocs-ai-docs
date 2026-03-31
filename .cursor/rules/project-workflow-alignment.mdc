@@ -1,0 +1,13 @@
+---
+description: Align Cursor with Antigravity bootstrap — production rules, KB, skills, then workflows
+alwaysApply: true
+---
+
+# Project workflow alignment (Cursor + Antigravity)
+
+Follow **[`docs/kb/ai-documentation-standards.md`](../../docs/kb/ai-documentation-standards.md)** for the **decision hierarchy**, **default bootstrap**, **stable `@` paths**, and **Cursor vs Antigravity** roles. Forbidden patterns list: [`docs/kb/anti-patterns.md`](../../docs/kb/anti-patterns.md).
+
+- **Full-stack / Figma features:** [FEATURE-IMPLEMENTATION-MASTER.md](../../.agents/workflows/FEATURE-IMPLEMENTATION-MASTER.md) (CW1–CW5A).
+- **Isolated operations:** matching [TOOL-add-*.md](../../.agents/workflows/) workflow and referenced skills.
+
+Do not invent new skills during feature work; skills live under `docs/skills/` and [`INDEX.md`](../../docs/skills/INDEX.md).

@@ -1,7 +1,11 @@
-# SubQDocs — Backend Context
+# SubQDocs — Backend conventions
 
-> **Parent:** [`AI-CONTEXT.md`](AI-CONTEXT.md) — Architecture, Domain Rules, Never Do  
-> **Skills:** [`docs/skills/INDEX.md`](docs/skills/INDEX.md)
+> **Parent:** [`../project/overview.md`](../project/overview.md) — Product, architecture, domain rules, never-do  
+> **Skills:** [`../../skills/INDEX.md`](../../skills/INDEX.md)
+
+## Knowledge base (`subqdocs-backend`)
+
+Distributed KB (hub, `src/common`, `src/sequelize`, priority module deep docs): **[`../subqdocs-backend/INDEX.md`](../subqdocs-backend/INDEX.md)**
 
 ---
 
@@ -14,7 +18,7 @@ Key libraries and why they matter:
 | Library | Why it matters to an agent |
 |---|---|
 | `sequelize-typescript` | Decorator-based models — `@Table`, `@Column`, `@ForeignKey` |
-| `bullmq` + `redis` | Background job processing — see [`docs/skills/07-add-background-job.md`](docs/skills/07-add-background-job.md) |
+| `bullmq` + `redis` | Background job processing — see [`../../skills/07-bullmq-background-jobs.md`](../../skills/07-bullmq-background-jobs.md) |
 | `@langchain/langgraph` | AI agent state graph orchestration |
 | `@deepgram/sdk` | Audio transcription |
 | `multer` | File upload — routes need body-parser bypass in `app.ts` |
