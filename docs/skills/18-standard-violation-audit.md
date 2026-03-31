@@ -26,22 +26,23 @@ Detect and log best-practice violations in existing code before building on top 
 11. Search for `console.log`, `console.warn`, `console.error`, `console.info` across all `src/` files. Flag every occurrence — use `logger` from `@utils/logger`.
 12. Search log statements (`logger.info`, `logger.error`, `logger.warn`) for PHI field names: `patient_name`, `first_name`, `last_name`, `date_of_birth`, `dob`, `ssn`, `social_security`, `diagnosis`, `medication`, `phone`, `email`, `address`. Flag any occurrence.
 13. Search for `res.json(`, `res.send(`, `res.status(` in controllers. Flag if `generalResponse()` is not used instead.
-14. Search for string literals that appear 3+ times across different files in the same module. Flag where an enum in `enum.ts` should replace them.
+14. Search controller and service files for `findOne`, `findAll`, `getAll`, `.get(` calls. For each call touching a clinical table (`patients`, `patient_visits`, and their related tables), check if `organization_id` is in the WHERE clause. Flag any missing `organization_id` as **CRITICAL — cross-tenant data access risk**.
+15. Search for string literals that appear 3+ times across different files in the same module. Flag where an enum in `enum.ts` should replace them.
 
 ### Frontend Violations
-15. Search for `axios.get`, `axios.post`, `axios.put`, `axios.delete`, `axios.patch`, `axios(` in `src/components/` and `src/pages/`. Flag every occurrence — must use the typed HTTP wrapper.
-16. Search for `React.lazy(` across all frontend files. Flag every occurrence — must use `lazyWithRetry()`.
-17. Open each Redux slice. Check if any reducer or extra reducer stores API response data (patterns: `state.data = action.payload`, `state.items = action.payload.data`). Flag — server state belongs in `useQuery`.
-18. Open each page/component that renders a list or table. Check for the empty state: is there a conditional render when the array is empty? Flag if the component renders nothing or a bare empty container when data is `[]`.
-19. Open each form component. Check the imports. If both `formik` and `react-hook-form` (or `useForm`) are imported, flag as mixed form libraries.
-20. Search for string literals that look like route paths (`'/patient'`, `'/dashboard'`, `'/visit'`, etc.) outside of `routePath.tsx`. Flag every occurrence.
-21. Search for `useEffect` where the body calls a setState with data from a `useQuery` result or API response (pattern: `useEffect(() => { setX(queryData) }, [queryData])`). Flag — this double-stores server state.
-22. Search for `useMutation({` without `onError` in the options object. Flag every occurrence — mutations without error handling silently fail.
-23. Check each component's Props type. Flag if typed as `any`, `Record<string, any>`, or if the component accepts props but has no explicit interface/type definition.
+16. Search for `axios.get`, `axios.post`, `axios.put`, `axios.delete`, `axios.patch`, `axios(` in `src/components/` and `src/pages/`. Flag every occurrence — must use the typed HTTP wrapper.
+17. Search for `React.lazy(` across all frontend files. Flag every occurrence — must use `lazyWithRetry()`.
+18. Open each Redux slice. Check if any reducer or extra reducer stores API response data (patterns: `state.data = action.payload`, `state.items = action.payload.data`). Flag — server state belongs in `useQuery`.
+19. Open each page/component that renders a list or table. Check for the empty state: is there a conditional render when the array is empty? Flag if the component renders nothing or a bare empty container when data is `[]`.
+20. Open each form component. Check the imports. If both `formik` and `react-hook-form` (or `useForm`) are imported, flag as mixed form libraries.
+21. Search for string literals that look like route paths (`'/patient'`, `'/dashboard'`, `'/visit'`, etc.) outside of `routePath.tsx`. Flag every occurrence.
+22. Search for `useEffect` where the body calls a setState with data from a `useQuery` result or API response (pattern: `useEffect(() => { setX(queryData) }, [queryData])`). Flag — this double-stores server state.
+23. Search for `useMutation({` without `onError` in the options object. Flag every occurrence — mutations without error handling silently fail.
+24. Check each component's Props type. Flag if typed as `any`, `Record<string, any>`, or if the component accepts props but has no explicit interface/type definition.
 
 ### Compile Results
-24. For each violation found, record: file path, line number, category (TS/Backend/Frontend), violation type (short name), and a one-line description.
-25. Classify each finding as either **"violation — do not replicate"** or **"pattern to follow"** based on surrounding code context.
+25. For each violation found, record: file path, line number, category (TS/Backend/Frontend), violation type (short name), and a one-line description.
+26. Classify each finding as either **"violation — do not replicate"** or **"pattern to follow"** based on surrounding code context.
 
 ## Rules
 

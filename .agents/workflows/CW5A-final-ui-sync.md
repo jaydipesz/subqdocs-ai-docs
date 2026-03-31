@@ -13,13 +13,13 @@ Verify every frontend component against the Figma source, fix all mismatches, an
 - **COMPONENT-TO-FIGMA MAPPING** — output of CW5
 
 ## Trigger Condition
-Immediately after CW5 completes. Mandatory. Cannot be skipped.
+Immediately after CW5 completes. Mandatory when CW5 runs. Skipped when `PARTIAL_SCOPE` is `backend-first` (CW5 and CW5A are both skipped).
 
 ## Steps
 
 1. Open the Figma file using Figma MCP with the file key from `FIGMA_URL`.
 2. Load the **COMPONENT-TO-FIGMA MAPPING** table.
-3. For each component row in the mapping table, navigate to the Figma node using the Node ID column, then load `docs/skills/16-ui-verification.md` and follow its steps 4–12 (Layout, Elements, Typography, Colors, Icons, States, Interactions).
+3. For each component row in the mapping table, navigate to the Figma node using the Node ID column, then load `docs/skills/16-pixel-perfect-ui-verification.md` and follow its steps 4–12 (Layout, Elements, Typography, Colors, Icons, States, Interactions).
 
 ### Mismatch Fix Protocol
 13. For every mismatch found in steps 4–12:
@@ -49,5 +49,5 @@ Figma Screen: [name] ([node ID])
 Every component in the mapping table verified. All mismatches fixed. Report produced. User replies **"confirmed"**. Feature is complete.
 
 ## Skills Required
-- `docs/skills/16-ui-verification.md`
-- `docs/skills/12-figma-extraction.md`
+- `docs/skills/16-pixel-perfect-ui-verification.md`
+- `docs/skills/12-figma-design-extraction.md`

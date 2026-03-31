@@ -114,7 +114,7 @@ export const createMyEntitySchema = Joi.object({
 });
 ```
 
-> Joi is the primary validation library. Some modules use `express-validator` or `zod` — match whatever the adjacent modules use.
+> Joi is the only validation library for new code. Legacy modules may use `express-validator` or `zod` — do NOT match them. Always use Joi (Production Rule 11).
 
 ---
 

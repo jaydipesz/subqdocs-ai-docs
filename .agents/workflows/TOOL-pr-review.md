@@ -54,9 +54,9 @@ When a PR contains more than 50 changed files, context window limits make full r
 
 | If changed files include... | Load this skill |
 |-----------------------------|----------------|
-| S3 upload/download logic, storage paths | `docs/skills/s3.md` |
-| WebSocket, socket.io, real-time events | `docs/skills/sockets.md` |
-| Background jobs, queues, workers | `docs/skills/jobs.md` |
+| S3 upload/download logic, storage paths | `docs/skills/04-s3-multipart-upload.md` |
+| WebSocket, socket.io, real-time events | `docs/skills/06-realtime-socket-events.md` |
+| Background jobs, queues, workers | `docs/skills/07-bullmq-background-jobs.md` |
 | Any other domain skill | Match by filename pattern; load only on a clear match |
 
 **Source of truth**: These files are the primary reference. If a pattern is not covered, default to the OWASP Top 10 for security concerns and the existing codebase's dominant conventions for style concerns — not general internet best practices.

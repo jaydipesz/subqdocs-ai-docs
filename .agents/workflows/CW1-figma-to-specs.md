@@ -48,4 +48,4 @@ Always runs first in the master workflow.
 Report is complete. All ambiguities resolved. User replies **"confirmed"**. Do not proceed to CW2 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/12-figma-extraction.md`
+- `docs/skills/12-figma-design-extraction.md`

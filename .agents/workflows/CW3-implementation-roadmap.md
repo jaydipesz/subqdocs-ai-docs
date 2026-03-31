@@ -58,4 +58,4 @@ After CW2 is confirmed by the user.
 User replies **"confirmed"**. Do not proceed to CW4 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/17-migration-safety.md`
+- `docs/skills/17-database-migration-safety.md`

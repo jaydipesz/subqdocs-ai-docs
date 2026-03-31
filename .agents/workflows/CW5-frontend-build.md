@@ -19,7 +19,7 @@ After CW4 is confirmed by the user. If `PARTIAL_SCOPE` is `backend-first`, **ski
 
 Before writing any code, re-read the **API CONTRACT DOCUMENT**. Every interface, API function, and validation rule must come from that document.
 
-1. Load `docs/skills/15-frontend-implementation.md`. Follow its steps 1–8 using the FIGMA ANALYSIS REPORT, API CONTRACT DOCUMENT, and AUDIT REPORT as inputs.
+1. Load `docs/skills/15-structured-frontend-implementation.md`. Follow its steps 1–8 using the FIGMA ANALYSIS REPORT, API CONTRACT DOCUMENT, and AUDIT REPORT as inputs.
 
 ### Verification
 2. Run `npx tsc --noEmit` in `subqdocs-frontend/`. Fix every type error before proceeding.
@@ -38,4 +38,4 @@ Before writing any code, re-read the **API CONTRACT DOCUMENT**. Every interface,
 `tsc --noEmit` passes. Mapping table produced. Hand off to CW5A immediately — no user confirmation gate (CW5A is mandatory).
 
 ## Skills Required
-- `docs/skills/15-frontend-implementation.md`
+- `docs/skills/15-structured-frontend-implementation.md`

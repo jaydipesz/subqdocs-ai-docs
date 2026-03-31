@@ -2,7 +2,7 @@
 description: Add a new CRUD endpoint to an existing backend module (controller + validation + route registration)
 ---
 
-1. Read `docs/skills/01-add-backend-module.md` (steps 6–8) and `docs/skills/10-query-patient-data.md`.
+1. Read `docs/skills/01-backend-module-scaffolding.md` (steps 6–8) and `docs/skills/10-secure-patient-data-query.md`.
 
 2. Ask the user for:
    - Which existing module (e.g. `patient`, `patient_visit`, `prescription`)
@@ -21,7 +21,7 @@ description: Add a new CRUD endpoint to an existing backend module (controller +
 5. Add the route in the module's `routes/` file inside the existing factory function:
    - Apply middleware chain: `authMiddleware`, `organizationMemberMiddleware` (if needed), `trackDeviceLog`, `userActivityMiddleware`, `validationMiddleware(schema, source)`
 
-6. Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-add-api-service-call.md`.
+6. Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-frontend-api-integration.md`.
 
 7. Validate:
 // turbo

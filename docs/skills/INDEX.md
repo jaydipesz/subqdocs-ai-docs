@@ -10,8 +10,6 @@ An agent should load a skill before acting when any trigger phrase below matches
 
 | # | File | Agent trigger phrases | Depends on | What it prevents |
 |---|---|---|---|---|
-| # | File | Agent trigger phrases | Depends on | What it prevents |
-|---|---|---|---|---|
 | 01 | [01-backend-module-scaffolding.md](./01-backend-module-scaffolding.md) | "add a new backend endpoint", "create a new API route", "add a new database table", "create a new module", "new backend feature" | — | Unprotected routes, cross-tenant data access, missing model registration, hard-delete of clinical data |
 | 02 | [02-frontend-route-registration.md](./02-frontend-route-registration.md) | "add a new page", "create a new route", "new frontend page", "add a view", "register a page component" | — | Auth guards bypassed, white screens from stale chunks, broken navigation when paths change |
 | 03 | [03-utc-time-management.md](./03-utc-time-management.md) | "visit time", "visit_time", "end_time", "schedule a visit", "timezone", "appointment time" | 01 | Date shifting by hours for non-UTC users, filtering on the wrong column, broken end_time on reschedule |
@@ -31,3 +29,4 @@ An agent should load a skill before acting when any trigger phrase below matches
 | 17 | [17-database-migration-safety.md](./17-database-migration-safety.md) | "alter table", "add column", "migration risk", "safe migration", "existing table" | 01 | NOT NULL without default on existing rows, empty down function, type mismatch |
 | 18 | [18-standard-violation-audit.md](./18-standard-violation-audit.md) | "check for violations", "best practice audit", "code quality check", "find anti-patterns" | 13 | Replicated violations, false positives, missed console.log or PHI in logs |
 | 19 | [19-prompt-engineering.md](./19-prompt-engineering.md) | "create a prompt", "add an AI prompt", "new LLM prompt", "write a system prompt", "edit a prompt", "prompt engineering" | — | Hallucinated medical data, missing anti-hallucination guards, raw placeholders in output, broken JSON schema, PHI in static prompt text |
+| 20 | [20-agent-node-implementation.md](./20-agent-node-implementation.md) | "add a new agent node", "create an agent node", "modify latest-agents workflow", "add a clinical section to pipe", "register agent node", "stateGraphWorkflow" | 01, 06, 19 | Frontend spinners hanging (missing socket), state overwrites in parallel execution, missing failure handlers, cross-tenant leaks in node-level DB queries |

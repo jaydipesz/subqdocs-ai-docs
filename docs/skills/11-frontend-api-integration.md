@@ -106,7 +106,7 @@ const mutation = useMutation({
 });
 ```
 
-You **must** include an `onError` callback in every `useMutation` (per Rule 16) to handle local UI state (like resetting a spinner), even though the Axios response interceptor auto-toasts the error globally.
+You **must** include an `onError` callback in every `useMutation` (per Rule 17) to handle local UI state (like resetting a spinner), even though the Axios response interceptor auto-toasts the error globally.
 
 ---
 

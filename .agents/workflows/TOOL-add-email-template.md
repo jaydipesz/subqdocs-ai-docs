@@ -2,7 +2,7 @@
 description: Add a transactional email with Handlebars template and fire-and-forget sendEmail
 ---
 
-1. Read `docs/skills/08-send-email.md` for the fire-and-forget rule and template variable conventions.
+1. Read `docs/skills/08-transactional-email-service.md` for the fire-and-forget rule and template variable conventions.
 
 2. Ask the user for:
    - Email purpose (invitation, password reset, notification, etc.)

@@ -2,7 +2,7 @@
 description: Add a new frontend page with route, API service, and optional Redux state
 ---
 
-1. Read `docs/skills/02-add-frontend-route.md` and `docs/skills/11-add-api-service-call.md`.
+1. Read `docs/skills/02-frontend-route-registration.md` and `docs/skills/11-frontend-api-integration.md`.
 
 2. Ask the user for:
    - Page name (e.g. `LabResults`)
@@ -22,7 +22,7 @@ description: Add a new frontend page with route, API service, and optional Redux
 
 6. If backend endpoints exist, add service functions in the appropriate `src/api/<domain>Services.ts` file using the typed wrappers from `src/api/axios.ts`.
 
-7. If global Redux state is needed, follow `docs/skills/05-add-redux-state.md`:
+7. If global Redux state is needed, follow `docs/skills/05-redux-state-management.md`:
    - Create the slice in `src/redux/ducks/<feature>.ts`
    - Register in `src/redux/store.ts`
    - Decide on persistence

@@ -2,7 +2,7 @@
 description: Add a background job with BullMQ queue + worker + server.ts registration
 ---
 
-1. Read `docs/skills/07-add-background-job.md` for the exact BullMQ pattern and `lockDuration` rules.
+1. Read `docs/skills/07-bullmq-background-jobs.md` for the exact BullMQ pattern and `lockDuration` rules.
 
 2. Ask the user for:
    - Job name (e.g. `generate-report`, `sync-ema-data`)

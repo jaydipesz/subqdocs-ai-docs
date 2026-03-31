@@ -4,7 +4,7 @@ description: Scaffold a complete backend module (migration → model → repo �
 
 // turbo-all
 
-1. Read `docs/skills/01-add-backend-module.md` for the full pattern.
+1. Read `docs/skills/01-backend-module-scaffolding.md` for the full pattern.
 
 2. Ask the user for:
    - Table name (snake_case plural, e.g. `lab_results`)

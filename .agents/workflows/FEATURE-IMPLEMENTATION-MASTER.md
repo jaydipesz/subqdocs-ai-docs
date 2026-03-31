@@ -36,7 +36,7 @@ Orchestrates end-to-end feature delivery from Figma design to verified frontend,
 4. Context files and skills — project-specific patterns
 5. Child workflows — execution sequence
 
-When 2 and 3 conflict, best practice wins. State the conflict explicitly.
+When 1 and 2 conflict, production rules win. When 2 and 3 conflict, best practice wins. State the conflict explicitly.
 
 ## Intake
 

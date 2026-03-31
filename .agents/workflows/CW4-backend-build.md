@@ -17,7 +17,7 @@ After CW3 is confirmed by the user.
 
 ## Steps
 
-1. Load `docs/skills/14-backend-implementation.md`. Follow its steps 1–9 using the IMPLEMENTATION PLAN and AUDIT REPORT as inputs.
+1. Load `docs/skills/14-structured-backend-implementation.md`. Follow its steps 1–9 using the IMPLEMENTATION PLAN and AUDIT REPORT as inputs.
 
 ### Verification
 2. Run `npx tsc --noEmit` in `subqdocs-backend/`. Fix every type error before proceeding.
@@ -39,5 +39,5 @@ End with: **"Backend complete. API contract produced. Confirm to begin frontend.
 `tsc --noEmit` passes. User replies **"confirmed"**. Do not proceed to CW5 until confirmation is received.
 
 ## Skills Required
-- `docs/skills/14-backend-implementation.md`
-- `docs/skills/17-migration-safety.md`
+- `docs/skills/14-structured-backend-implementation.md`
+- `docs/skills/17-database-migration-safety.md`

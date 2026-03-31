@@ -2,7 +2,7 @@
 description: Add a file upload endpoint end-to-end (Multer route + S3 upload + signed URL storage)
 ---
 
-1. Read `docs/skills/04-s3-file-upload.md` for bucket rules and the Multer bypass requirement.
+1. Read `docs/skills/04-s3-multipart-upload.md` for bucket rules and the Multer bypass requirement.
 
 2. Ask the user for:
    - What entity the file belongs to (patient attachment, org logo, user profile, eFax)

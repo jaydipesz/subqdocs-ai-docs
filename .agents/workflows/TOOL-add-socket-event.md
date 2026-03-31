@@ -2,7 +2,7 @@
 description: Add a real-time socket event end-to-end (backend handler + frontend listener)
 ---
 
-1. Read `docs/skills/06-socket-events.md` for room name formats and handler placement rules.
+1. Read `docs/skills/06-realtime-socket-events.md` for room name formats and handler placement rules.
 
 2. Ask the user for:
    - Event name (e.g. `visitStatusUpdated`)

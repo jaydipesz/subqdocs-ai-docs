@@ -2,18 +2,20 @@
 description: Add a new database column to an existing table (migration + model + type update)
 ---
 
-1. Ask the user for:
+1. Read `docs/skills/17-database-migration-safety.md` for the NOT NULL / defaultValue safety rules.
+
+2. Ask the user for:
    - Table name / model name (e.g. `patient_visits` / `PatientVisit`)
    - Column name, type, nullable, default value
    - Whether it needs a frontend type update too
 
-2. Generate the migration:
+3. Generate the migration:
 // turbo
 ```bash
 cd subqdocs-backend && npm run migrate:create -- add-<column_name>-to-<table_name>
 ```
 
-3. Edit the generated migration file in `src/sequelize/migrations/`:
+4. Edit the generated migration file in `src/sequelize/migrations/`:
    ```js
    module.exports = {
      up: async (queryInterface, Sequelize) => {
@@ -29,22 +31,22 @@ cd subqdocs-backend && npm run migrate:create -- add-<column_name>-to-<table_nam
    };
    ```
 
-4. Run the migration:
+5. Run the migration:
 // turbo
 ```bash
 cd subqdocs-backend && npm run migrate
 ```
 
-5. Add the column to the Sequelize model in `src/sequelize/models/<table_name>.model.ts` with the matching decorator.
+6. Add the column to the Sequelize model in `src/sequelize/models/<table_name>.model.ts` with the matching decorator.
 
-6. Add the field to the type interface in `src/sequelize/models/types/<table_name>.model.type.ts`. If it's optional, add `?` to the interface field. Update `RequiredAttributesType` only if the column is NOT NULL and has no default.
+7. Add the field to the type interface in `src/sequelize/models/types/<table_name>.model.type.ts`. If it's optional, add `?` to the interface field. Update `RequiredAttributesType` only if the column is NOT NULL and has no default.
 
-7. If the column is used in API responses, update the relevant frontend TypeScript interface in `subqdocs-frontend/src/types/`.
+8. If the column is used in API responses, update the relevant frontend TypeScript interface in `subqdocs-frontend/src/types/`.
 
-8. Validate:
+9. Validate:
 // turbo
 ```bash
 cd subqdocs-backend && npx tsc --noEmit
 ```
 
-9. Report the migration file name and all files modified.
+10. Report the migration file name and all files modified.
