@@ -83,6 +83,7 @@ jobs/<name>.cron.ts           # (optional) cron job
 
 ## Logging
 - Via `logger` from `@utils/logger` (Winston with daily rotation)
+- **`conditionallyCallLLMEngine` / `invokeEngineWithDynamicTimeout`:** when retries run, pass `llmAttempt` and `llmMaxAttempts` (1-based); `invokeEngine` uses `logger.error` only when `llmAttempt === llmMaxAttempts` so Sentry does not get one issue per retry.
 - ⚠️ Body logger in `app.ts` currently logs `JSON.stringify(body)` for non-webhook requests — PHI risk
 
 ## Error Handling
