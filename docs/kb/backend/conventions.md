@@ -83,7 +83,8 @@ jobs/<name>.cron.ts           # (optional) cron job
 
 ## Logging
 - Via `logger` from `@utils/logger` (Winston with daily rotation)
-- **`conditionallyCallLLMEngine` / `invokeEngineWithDynamicTimeout`:** when retries run, pass `llmAttempt` and `llmMaxAttempts` (1-based); `invokeEngine` uses `logger.error` only when `llmAttempt === llmMaxAttempts` so Sentry does not get one issue per retry.
+- **LLM (`invokeEngine` + `conditionallyCallLLMEngine`):** `invokeEngine` logs stream/API failures at **`logger.debug`** / **`logger.warn`** (not `error`) so Sentry is not flooded. **`logger.error`** for LLM retry flows is reserved for a **single** terminal line: `LLM orchestrator: all retries exhausted — terminal failure` in `conditionallyCallLLMEngine` when the retry loop gives up; per-attempt issues use **`logger.warn`** in the orchestrator catch.
+- **Stale Sentry issues** from old `[invokeEngine]` / duplicate timeout messages: after deploy, bulk-resolve with `subqdocs-backend/scripts/resolve-sentry-llm-log-noise-issues.sh` (requires `SENTRY_AUTH_TOKEN` with `event:write`; see script header). Or multi-select and **Resolve** in the Sentry UI.
 - ⚠️ Body logger in `app.ts` currently logs `JSON.stringify(body)` for non-webhook requests — PHI risk
 
 ## Error Handling

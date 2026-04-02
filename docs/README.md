@@ -1,6 +1,6 @@
 # SubQDocs — workspace documentation
 
-**Last reviewed:** 2026-03-31 · **Doc set:** 1
+**Last reviewed:** 2026-04-02 · **Doc set:** 1
 
 Single entry for **engineering documentation** in this monorepo: what lives in `docs/`, `.cursor/`, `.agents/`, and `.gemini/`, and **in what order** to read material for a task.
 
@@ -39,8 +39,10 @@ Single entry for **engineering documentation** in this monorepo: what lives in `
 | Path | Role |
 |------|------|
 | [`.cursor/rules/*.mdc`](../.cursor/rules/) | Cursor project rules (`globs`, `alwaysApply`). [`.cursor/rules/project-workflow-alignment.mdc`](../.cursor/rules/project-workflow-alignment.mdc) points at [`kb/ai-documentation-standards.md`](./kb/ai-documentation-standards.md). Scoped rules (e.g. `subqdocs-backend-modules.mdc`, `subqdocs-frontend-domains.mdc`) use narrow globs and link into `docs/kb/`; see [`kb/ai-documentation-standards.md`](./kb/ai-documentation-standards.md) stable paths. |
+| [`.cursor/AGENT.md`](../.cursor/AGENT.md) | Task Planning Agent — strict workflow for `plans/*.md` (approval gates). |
+| [`.cursor/mcp.json`](../.cursor/mcp.json) | MCP config (e.g. Figma, GitHub, filesystem) used during planning. |
 
-The knowledge base lives only under **`docs/kb/`** (not under `.cursor/`). Antigravity and other tools **do not** load `.cursor/rules` unless explicitly configured. Treat these as **Cursor guardrails**.
+**Canonical narrative** for the Task Planning Agent (artifact map, MCP notes, smoke test) is [`docs/kb/cursor-task-planning-agent.md`](./kb/cursor-task-planning-agent.md). The knowledge base lives only under **`docs/kb/`** (not under `.cursor/`). Antigravity and other tools **do not** load `.cursor/rules` unless explicitly configured. Treat these as **Cursor guardrails**.
 
 ---
 

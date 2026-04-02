@@ -1,6 +1,6 @@
 # SubQDocs — knowledge base (`docs/kb/`)
 
-**Last reviewed:** 2026-03-31 · **Doc set:** 1
+**Last reviewed:** 2026-04-02 · **Doc set:** 1
 
 **Parent workspace index:** [`docs/README.md`](../README.md) (how `docs/`, `.cursor/`, `.agents/`, `.gemini/` fit together).
 
@@ -16,6 +16,12 @@ Single home for **product**, **architecture**, **stack conventions**, and **per-
 | [`frontend/conventions.md`](./frontend/conventions.md) | React/Vite, Axios, Redux, Query, routes, SVG, PDF.js |
 | [`backend/conventions.md`](./backend/conventions.md) | Express, Sequelize, modules, validation |
 | [`anti-patterns.md`](./anti-patterns.md) | Forbidden patterns, deprecations, task → doc routing |
+
+### Meta / Cursor planning
+
+| Doc | Contents |
+|-----|----------|
+| [`cursor-task-planning-agent.md`](./cursor-task-planning-agent.md) | Task Planning Agent: `plans/` workflow, artifact links (AGENT.md, MCP), handoff to FEATURE-IMPLEMENTATION-MASTER |
 
 ## Per application
 

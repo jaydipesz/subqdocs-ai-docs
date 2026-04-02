@@ -1,6 +1,6 @@
 # Knowledge base maintenance
 
-**Last reviewed:** 2026-03-31 · **Doc set:** 1
+**Last reviewed:** 2026-04-02 · **Doc set:** 1
 
 When you **create or materially change** application code, update the matching **knowledge base** under `docs/kb/` in the same change set so agents and humans stay aligned.
 
@@ -28,6 +28,7 @@ When you **ban** a pattern, **deprecate** a package, or add a repo-wide **never*
 | **Boot / providers** (`main.tsx`, `App.tsx`, `server.ts`, `app.ts`) | Update `subqdocs-frontend/entry-points.md` or `subqdocs-backend/entry-points.md`. |
 | **Shared backend** (`src/common/`, `src/sequelize/`) | Update `subqdocs-backend/common.md` or `sequelize.md` when behavior or layout of those trees changes. |
 | **PHI, auth, tenancy, or “never do”** | Update `project/overview.md` and/or `production-rules.md`; do not rely only on KB stubs. |
+| **Task Planning Agent** (`.cursor/AGENT.md`, `.cursor/mcp.json` layout) | Update [`cursor-task-planning-agent.md`](./cursor-task-planning-agent.md) in the same change set so the KB hub stays the single index. |
 
 ## Hooks (concrete)
 

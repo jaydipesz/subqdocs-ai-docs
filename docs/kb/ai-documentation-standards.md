@@ -1,6 +1,6 @@
 # AI-oriented documentation standards (SubQDocs)
 
-**Last reviewed:** 2026-03-31 · **Doc set:** 1
+**Last reviewed:** 2026-04-01 · **Doc set:** 1
 
 Single place for **how** we structure docs for humans, **Cursor**, and **Antigravity**: principles, **decision/bootstrap order**, **stable `@` paths**, and tool roles.  
 **Hard rules** are not duplicated here — use [`.agents/rules/production-rules.md`](../../.agents/rules/production-rules.md) and [`project/overview.md`](./project/overview.md).
@@ -50,6 +50,8 @@ When (2) and (3) conflict, prefer best practice and state the conflict.
 
 Do not invent new skills during feature work; skills are authored under `docs/skills/` and indexed in [`INDEX.md`](../skills/INDEX.md).
 
+**Optional — pre-code planning only:** If the user is driving the **Task Planning Agent** (structured `plans/*.md` with approval gates before coding), read [`cursor-task-planning-agent.md`](./cursor-task-planning-agent.md) for artifact paths, MCP notes, and handoff to [FEATURE-IMPLEMENTATION-MASTER](../../.agents/workflows/FEATURE-IMPLEMENTATION-MASTER.md). This does not replace the default bootstrap above for implementation work.
+
 ### Master workflow bootstrap
 
 _Applies to [FEATURE-IMPLEMENTATION-MASTER](../../.agents/workflows/FEATURE-IMPLEMENTATION-MASTER.md)._
@@ -76,6 +78,7 @@ Use these in Cursor chat or Composer for consistent context (copy paths relative
 | `docs/README.md` |
 | `docs/kb/README.md` |
 | `docs/kb/ai-documentation-standards.md` (this file) |
+| `docs/kb/cursor-task-planning-agent.md` |
 | `docs/kb/project/overview.md` |
 | `docs/kb/project/architecture.md` |
 | `docs/kb/frontend/conventions.md` |
@@ -86,6 +89,7 @@ Use these in Cursor chat or Composer for consistent context (copy paths relative
 | `docs/kb/maintenance.md` |
 | `docs/kb/hooks/README.md` |
 | `docs/skills/INDEX.md` |
+| `.cursor/AGENT.md` |
 | `.cursor/rules/project-workflow-alignment.mdc` |
 | `.cursor/rules/documentation-maintenance.mdc` |
 | `.cursor/rules/subqdocs-backend-modules.mdc` |

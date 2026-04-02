@@ -99,6 +99,23 @@ State the problem and provide a concrete fix based on architectural patterns, wi
 
 Use line-specific review comments for every identified issue. Match the `path` and `line` to the exact location in the diff.
 
+#### Organization / tenant scoping (`organization_id`)
+
+Production rules require `organization_id` on queries **where it matters for tenant isolation**. Do **not** treat “missing `organization_id` on a `WHERE` clause” as a default finding or ask to add it on every update/delete.
+
+**Do not flag** (unless a real bug is proven — see below):
+
+- Updates, deletes, or fetches by **primary key** (`id`) on a table whose `id` is **globally unique**, when the handler is already **authenticated** and the row is identified only by that PK. This matches the exception in `.agents/rules/production-rules.md` (PK returning a single record).
+- Defense-in-depth extras (e.g. repeating `organization_id` on a delete right after a `get` that already scoped by org) — **optional**; do not block merges for style-only duplication.
+
+**Still flag** when the certainty rule is met:
+
+- **List/search/filter** endpoints that query clinical or org-scoped tables **without** constraining `organization_id` (or equivalent tenant guard).
+- **Foreign keys or bulk operations** where a client-supplied id could reference **another tenant’s row** (e.g. attaching a child to a parent record without verifying the parent belongs to the caller’s org) — focus on **authorization of the relationship**, not on sprinkling `organization_id` on every subquery.
+- **Proven IDOR**: e.g. enumerating ids and reading/updating another org’s data — not hypothetical “add org everywhere.”
+
+When in doubt, prefer **silent** over nitpicking; mechanical “add `organization_id` everywhere” comments are out of scope for this workflow.
+
 ---
 
 ### 5. Production Checklist
