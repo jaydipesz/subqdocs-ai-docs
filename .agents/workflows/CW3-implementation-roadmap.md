@@ -52,7 +52,7 @@ After CW2 is confirmed by the user.
 21. For each deviation: state the existing pattern (with file path), your pattern, and why yours is better.
 
 ## Output
-**IMPLEMENTATION PLAN** with these exact sections: Backend Plan, Frontend Plan, Deviations. End with: **"Plan complete. Confirm to begin implementation."**
+**IMPLEMENTATION PLAN** (saved at `.agents/artifacts/implementation-plan.md`) with these exact sections: Backend Plan, Frontend Plan, Deviations. End with: **"Plan complete. Confirm to begin implementation."**
 
 ## Done Condition
 User replies **"confirmed"**. Do not proceed to CW4 until confirmation is received.
