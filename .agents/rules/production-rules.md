@@ -20,7 +20,7 @@ unique primary key returning a single record, and the exception is documented in
 
 # Code Quality Rules
 
-11. **Library Standards:** ALWAYS use `Joi` for backend schema validation. For frontend forms, ALWAYS use `Formik` + `Yup` as the 1st priority standard; `react-hook-form` is the 2nd priority only if strictly necessary.
+11. **Library Standards:** ALWAYS use `Joi` for backend schema validation. For frontend forms, the **primary choice is `Formik` + `Yup`** and the **secondary choice is `react-hook-form`**.
 12. Never use `process.env.X` directly in application code — always access environment variables through `config/index.ts`.
 13. Never use `console.log`, `console.warn`, `console.error`, or `console.info` — always use `logger` from `@utils/logger`.
 14. Never include PHI (patient name, first name, last name, DOB, SSN, diagnosis, medication, phone, email, address) in any log statement. See `AI-CONTEXT.md` § PHI Fields for the complete list.

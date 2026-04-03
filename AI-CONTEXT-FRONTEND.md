@@ -13,10 +13,32 @@ Key libraries and why they matter:
 
 | Library | Why it matters to an agent |
 |---|---|
-| `@reduxjs/toolkit` + `redux-persist` | Global state — 15 persisted slices in `store.ts` |
-| `@tanstack/react-query` | All server-fetched data — never duplicate in Redux |
-| `@mui/material` + `@mantine/core` | Two component libraries coexist — MUI is primary |
-| `formik` + `yup` | Primary form library — preferred for new forms |
+| `@reduxjs/toolkit` + `redux-persist` | Global state (15 persisted slices) |
+| `@tanstack/react-query` | Server-fetched data (see Rule 16) |
+| `@mui/material` + `@mantine/core` | MUI is **Primary**; Mantine is **Secondary/Specialized** |
+
+---
+
+# UI Library Hierarchy
+
+To avoid mixed styles and ensure consistency:
+
+1.  **MUI (Primary)**: Use for 95% of components including all inputs, buttons, sidebars, and structural layout.
+2.  **Mantine (Secondary)**: 
+    - Use for the `MantineProvider` (root).
+    - Use for complex widgets and hooks (**`useDisclosure`**, **`RichTextEditor`**) not provided by MUI.
+    - Avoid using Mantine buttons/inputs if an MUI equivalent exists.
+
+# Modal Management
+
+The project uses a **Centralized Modal Pattern**:
+
+1.  **Providers**: `ModalProvider` in `App.tsx` manages global modal visibility.
+2.  **Usage**: 
+    - Trigger modals via the custom hook: `const { openModal } = useModal()`.
+    - Features: `GlobalModal` component renders the active modal from context.
+    - Standard: Feature-specific modals live in `src/components/common/modal/`.
+| `formik` + `yup` | Primary forms (see Rule 11) |
 | `tailwindcss` | Utility CSS for layout and spacing |
 | `socket.io-client` | Real-time via singleton in `src/services/socket.ts` |
 | `react-big-calendar` | Calendar grid in Dashboard |
@@ -27,13 +49,13 @@ Key libraries and why they matter:
 
 ```
 subqdocs-frontend/src/
-├── constants/routePath.tsx        # THE only file for route definitions
-├── components/common/svg/Svg.tsx  # THE only file for SVG icons (6000+ lines)
+├── constants/routePath.tsx        # Route definitions (see Rule 8)
+├── components/common/svg/Svg.tsx  # SVG icons (see Rule 9)
 ├── api/axios.ts                   # Typed wrappers — never use raw axios
 ├── redux/store.ts                 # All slices registered here
 ├── redux/ducks/                   # One slice per concern
 ├── redux/dispatch/                # Dispatch helpers for outside-component use
-├── helper/laxywithRetry.ts        # Use instead of React.lazy()
+├── helper/laxywithRetry.ts        # See Rule 15
 └── main.tsx                       # PDF.js worker lock + Sentry init
 ```
 
@@ -48,7 +70,7 @@ subqdocs-frontend/src/
 - `skipToast: true` suppresses automatic error toasts
 
 ## State Management
-- **Server state:** TanStack Query (`useQuery`, `useMutation`) — cache invalidation on mutations
+- **Server state:** follow Rule 16 (TanStack Query)
 - **Global client state:** Redux (persisted via `redux-persist`)
 - **Local:** `useState` / `useReducer`
 - Outside-component Redux: dispatch helpers in `src/redux/dispatch/`
@@ -59,9 +81,9 @@ subqdocs-frontend/src/
 - Modals live in `src/components/common/modal/[Feature]Modal.tsx`
 
 ## Forms
-- **Preferred (use first):** Formik + Yup
-- **Alternative:** React Hook Form + Yup (or Zod) — used in some modules
-- Never mix the two in the same component
+- **Primary:** `Formik` + `Yup` (see Rule 11)
+- **Secondary:** `react-hook-form`
+- **Rule:** Never mix the two in the same component.
 
 ## TypeScript
 - `@` path alias resolves to `src/`

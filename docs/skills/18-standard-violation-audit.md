@@ -34,7 +34,7 @@ Detect and log best-practice violations in existing code before building on top 
 17. Search for `React.lazy(` across all frontend files. Flag every occurrence — must use `lazyWithRetry()`.
 18. Open each Redux slice. Check if any reducer or extra reducer stores API response data (patterns: `state.data = action.payload`, `state.items = action.payload.data`). Flag — server state belongs in `useQuery`.
 19. Open each page/component that renders a list or table. Check for the empty state: is there a conditional render when the array is empty? Flag if the component renders nothing or a bare empty container when data is `[]`.
-20. Open each form component. Check the imports. If both `formik` and `react-hook-form` (or `useForm`) are imported, flag as mixed form libraries.
+20. Check for mixed form libraries: importing both `formik` and `react-hook-form` in the same component is a violation. Either is allowed independently as per Rule 11 (Primary: Formik, Secondary: RHF).
 21. Search for string literals that look like route paths (`'/patient'`, `'/dashboard'`, `'/visit'`, etc.) outside of `routePath.tsx`. Flag every occurrence.
 22. Search for `useEffect` where the body calls a setState with data from a `useQuery` result or API response (pattern: `useEffect(() => { setX(queryData) }, [queryData])`). Flag — this double-stores server state.
 23. Search for `useMutation({` without `onError` in the options object. Flag every occurrence — mutations without error handling silently fail.

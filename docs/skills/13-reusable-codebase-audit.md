@@ -61,7 +61,7 @@ Frontend Audit:
 - Component: VisitCard (src/components/pages/Dashboard/VisitCard.tsx)
     Props: { visit: PatientVisit, onClick: () => void }
     Renders: card with patient name, visit date, status badge
-- Form library: Formik + Yup
+- Form library: Formik + Yup (Primary) or react-hook-form (Secondary)
     Import: `import { Formik } from 'formik'` (src/components/pages/Dashboard/ScheduleVisit.tsx)
 - Icon: CalendarIcon, ClockIcon — match Figma calendar and time icons
 - Route: SCHEDULE_VISIT { path: '/schedule-visit', routeType: 'authenticate' }

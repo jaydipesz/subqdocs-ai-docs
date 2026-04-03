@@ -34,7 +34,7 @@ After CW1 is confirmed by the user.
 ### Frontend Audit
 10. Search `src/components/` for components whose names or rendered elements match UI patterns in the FIGMA ANALYSIS REPORT. Record: file path, props interface, what it renders.
 11. Search `src/redux/` or `src/store/` for slices in the `DOMAIN`. Record: file path, slice name, what state it holds.
-12. Open the form component of the closest adjacent feature. Record the exact form library used (Formik, React Hook Form) and its import statement.
+12. Open the form component of the closest adjacent feature. Record the form library used (Primary: Formik, Secondary: React Hook Form).
 13. Open `src/components/common/svg/Svg.tsx`. List every icon whose name or shape matches icons in the FIGMA ANALYSIS REPORT.
 14. Open `src/constants/routePath.tsx`. List every route entry in the same domain area.
 

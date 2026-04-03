@@ -27,6 +27,21 @@ SubQDocs is a **medical practice management platform** for doctors and clinical 
 - **Third-party EHR sync** — EMA and Optum integrations
 - **Stripe subscriptions** — organization billing
 - **Calendar** — scheduling, office hours, unavailability with recurrence
+- **Electronic Health Record (EHR) sync** — EMA and Optum integrations
+
+---
+
+# Environment Context
+
+The project operates in three primary environments defined by `NODE_ENV`:
+
+1.  **`local` / `development`**: Used for active coding. Combined via `isLocal` check in many modules.
+2.  **`production`**: The live clinical environment.
+3.  **`test`**: Used for Vitest and CI pipelines.
+
+**Enforcement:**
+- Sensitive sync operations (EMA, Optum) must have production guards: `if (NODE_ENV === "production") { ... }`.
+- In `isLocal`, focus on fast feedback and mock data where external costs are involved (e.g., Westfax).
 
 ---
 
@@ -34,7 +49,7 @@ SubQDocs is a **medical practice management platform** for doctors and clinical 
 
 1. **Frontend** triggers action → API call via typed Axios wrappers (see `AI-CONTEXT-FRONTEND.md`)
 2. **Backend** receives via Express → middleware chain → controller → PostgreSQL via Sequelize (see `AI-CONTEXT-BACKEND.md`)
-3. **Response** via `generalResponse()` → Axios interceptor handles 401/404 globally
+3. **Response** via `generalResponse()` (see Rule 6). Axios interceptor handles 401/404 globally.
 
 ### Real-Time Sync
 
@@ -79,9 +94,9 @@ Frontend: PDF.js worker configured in `main.tsx` (see `AI-CONTEXT-FRONTEND.md`).
 > Enforcement rules are in `.agents/rules/production-rules.md`. Detailed patterns are in `docs/skills/`.
 
 ## Security
-- **Never skip `organization_id` filtering** in patient/visit queries — cross-tenant PHI leak.
+- **Check Rule 1** before querying clinical tables (PHI protection).
 - **Never bypass `authMiddleware`** on patient data endpoints.
 
 ## Data Integrity
-- **Never hard-delete patient/visit records** — both use `paranoid: true`.
+- **Check Rule 3** before deleting records (Soft Delete).
 - **Never upload large files via `PutObject`** — use multipart abstraction in `src/common/s3/`.

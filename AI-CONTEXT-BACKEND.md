@@ -19,7 +19,7 @@ Key libraries and why they matter:
 | `@deepgram/sdk` | Audio transcription |
 | `multer` | File upload — routes need body-parser bypass in `app.ts` |
 | `node-cron` | Scheduled tasks — must call `.start()` in `server.ts` |
-| `joi` | Primary request validation (some modules use `express-validator` or `zod`) |
+| `joi` | Request validation (see Rule 11) |
 
 ---
 
@@ -35,7 +35,7 @@ subqdocs-backend/src/
 ├── sequelize/migrations/          # Sequelize CLI migrations (345 files)
 ├── sequelize/repository/          # Query wrappers: getXRepo(), findAllX()
 ├── modules/<name>/                # Feature modules — route/controller/validation/service/jobs
-├── common/utils/generalResponse   # THE response helper — all responses go through this
+├── common/utils/generalResponse   # THE response helper (see Rule 6)
 ├── common/utils/s3/s3.ts          # S3 upload functions — import from here
 ├── middlewares/auth.middleware.ts  # JWT decode → req.user
 └── config/index.ts                # ENV variable exports
@@ -49,7 +49,7 @@ subqdocs-backend/src/
 
 Every module under `src/modules/<name>/` follows:
 ```
-routes/<name>.route.ts        # Factory function returning Router
+routes/<name>.route.ts        # Factory function (see Rule 5)
 controller/<name>.controller.ts
 validation_schema/<name>.validation.ts
 services/<name>.service.ts    # (optional) extracted business logic
@@ -58,11 +58,28 @@ jobs/<name>.cron.ts           # (optional) cron job
 
 ## Models (`src/sequelize/models/`)
 - One file per table: `snake_case.model.ts` → `class PascalCaseModel`
-- `@Table({ paranoid: true })` on patient/clinical data (soft delete)
-- Type interfaces in `models/types/<model>.model.type.ts`
-- Enums in `src/common/utils/enum.ts`
-- Password hashing: Argon2 in `@BeforeCreate/@BeforeUpdate` hook on User model
-- **New models must be registered in `models/index.ts`** — without this, queries silently fail
+- Registry: New models **MUST** be registered in `models/index.ts` — without this, queries silently fail.
+
+---
+
+# Transaction Strategy
+
+To ensure data integrity as per Rule 27, follow this managed transaction pattern:
+
+1.  **Initiation**: Always prefer **Managed Transactions** in Services (or Controllers for simple tasks).
+    ```ts
+    await sequelize.transaction(async (transaction) => {
+        // use transaction object in repository calls
+        await repo.create({ ... }, { transaction });
+    });
+    ```
+2.  **Passing**: Always pass the `transaction` object in the options `{ transaction: t }` to repositories.
+
+# Fast-Track Update Pattern
+
+To reduce database and logging overhead:
+- Before calling `repository.update(...)`, perform a shallow comparison between the incoming data and the existing database record.
+- **Rule**: If the data hasn't changed, return early with the original record without hitting the database.
 
 ## Repositories
 - Pure functions wrapping Sequelize queries — keeps controllers clean
@@ -74,16 +91,15 @@ jobs/<name>.cron.ts           # (optional) cron job
 - Undo last: `npm run migrate:undo`
 
 ## Validation
-- Most modules: `joi` via `validationMiddleware(schema, 'body'|'query'|'params')`
+- Primary: `joi` (see Rule 11) via `validationMiddleware`
 - Some modules use `express-validator` or `zod` — match what adjacent modules use
 
 ## Logging
-- Via `logger` from `@utils/logger` (Winston with daily rotation)
+- Always follow Rule 13 (see `@utils/logger`)
 - ⚠️ Body logger in `app.ts` currently logs `JSON.stringify(body)` for non-webhook requests — PHI risk
 
 ## Error Handling
-- Throw `new HttpException(status, message, data, toast)` from controllers
-- `error.middleware.ts` catches and calls `generalResponse`
+- Follow Rules 2 & 6: use `parse(model)` and `generalResponse`
 - Sentry notified on every caught exception
 
 ## Body Parsing Exceptions
