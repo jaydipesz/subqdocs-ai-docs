@@ -9,7 +9,7 @@ You have an approved implementation plan. Execute it precisely.
 ## Pre-Execution Context
 
 Before writing any code:
-1. Read `.agents/rules/production-rules.md` — internalize all non-negotiable rules.
+1. Confirm production rules are active (auto-injected via system prompt — do not re-read the file).
 2. Read `docs/skills/INDEX.md` — identify which skills the plan's tasks trigger.
 
 ## Steps

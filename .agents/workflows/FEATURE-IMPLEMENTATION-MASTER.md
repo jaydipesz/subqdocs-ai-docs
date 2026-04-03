@@ -52,7 +52,7 @@ If the user says "skip" or "none" for any optional input, use the Default value.
 
 ## Bootstrap
 
-1. Read `.agents/rules/production-rules.md`.
+1. Confirm production rules are active (auto-injected via system prompt — do not re-read the file).
 2. Read `AI-CONTEXT.md`, `AI-CONTEXT-BACKEND.md`, `AI-CONTEXT-FRONTEND.md`.
 3. Read `docs/skills/INDEX.md`.
 4. Read the child workflow file for the **current phase only** (start with CW1). Load subsequent CW files on-demand as each phase completes.

@@ -49,7 +49,7 @@ When a PR contains more than 50 changed files, context window limits make full r
 ### 3. Project Context Review
 
 - Read `AI-CONTEXT.md`, `AI-CONTEXT-FRONTEND.md`, and `AI-CONTEXT-BACKEND.md` for standards.
-- Read `.agents/rules/production-rules.md` for mandatory constraints.
+- Confirm production rules are active (auto-injected via system prompt — do not re-read the file).
 - Load files from `docs/skills/` **only if the PR touches a matching domain**. Use the file list from step 1 to determine relevance before loading:
 
 | If changed files include... | Load this skill |

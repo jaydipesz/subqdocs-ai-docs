@@ -15,21 +15,7 @@ description: Add a new database column to an existing table (migration + model +
 cd subqdocs-backend && npm run migrate:create -- add-<column_name>-to-<table_name>
 ```
 
-4. Edit the generated migration file in `src/sequelize/migrations/`:
-   ```js
-   module.exports = {
-     up: async (queryInterface, Sequelize) => {
-       await queryInterface.addColumn('<table_name>', '<column_name>', {
-         type: Sequelize.<TYPE>,
-         allowNull: <true|false>,
-         defaultValue: <value|null>,
-       });
-     },
-     down: async (queryInterface) => {
-       await queryInterface.removeColumn('<table_name>', '<column_name>');
-     },
-   };
-   ```
+4. Edit the generated migration file in `src/sequelize/migrations/` — follow the `addColumn` pattern in skill 17 (type, allowNull, defaultValue in `up`; `removeColumn` in `down`).
 
 5. Run the migration:
 // turbo
