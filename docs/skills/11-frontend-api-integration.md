@@ -145,3 +145,4 @@ The typed wrappers unwrap `responseData` — your service function already retur
 - [ ] Component uses `useQuery` or `useMutation` (not direct `async/await` in event handlers)
 - [ ] `queryClient.invalidateQueries()` called on successful mutations
 - [ ] Custom `onError` added to every mutation for UI state management (Rule 16)
+- [ ] Every button triggering a mutation uses `disabled={mutation.isPending}` (Rule 29)

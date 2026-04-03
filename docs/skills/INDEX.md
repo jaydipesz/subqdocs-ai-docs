@@ -4,6 +4,8 @@ An agent should load a skill before acting when any trigger phrase below matches
 
 > **Matching rule:** If the user's request contains ANY of the listed trigger phrases as a substring (case-insensitive), load the corresponding skill BEFORE acting. When in doubt, load the skill — false positives (loading an unnecessary skill) are cheaper than false negatives (missing a critical checklist).
 
+> **Intent matching:** If a trigger phrase matches but the user's request is clearly unrelated to the skill's purpose (e.g., "delete patient" in context of removing a UI dropdown item, not deleting a database record), do NOT load the skill. Use judgment — the trigger is a hint, not a command.
+
 > **Depends on** means: if the operation requires creating files covered by the depended skill, load that skill too. It does NOT mean the depended skill must be loaded for every invocation.
 
 ---
@@ -31,3 +33,27 @@ An agent should load a skill before acting when any trigger phrase below matches
 | 19 | [19-medical-prompt-rules.md](./19-medical-prompt-rules.md) | "create a prompt", "add an AI prompt", "new LLM prompt", "write a system prompt", "edit a prompt", "prompt engineering", "anti-hallucination", "medical prompt" | — | Hallucinated medical data, missing anti-hallucination guards, PHI in static prompt text, missing dry-run validation |
 | 20 | [20-agent-node-implementation.md](./20-agent-node-implementation.md) | "add a new agent node", "create an agent node", "modify latest-agents workflow", "add a clinical section to pipe", "register agent node", "stateGraphWorkflow", "pipeline wiring", "edit journey", "continue recording" | 01, 06, 19, 21 | Frontend spinners hanging (missing socket), state overwrites in parallel execution, missing failure handlers, cross-tenant leaks in node-level DB queries, broken re-run merges |
 | 21 | [21-pipeline-prompt-integration.md](./21-pipeline-prompt-integration.md) | "pipeline prompt", "format settings", "validation schema for prompt", "invokeWithValidationAndRetry", "prompt factory", "formatRules", "pipeline template" | 19 | Raw placeholders in output, broken JSON schema, missing format variants, no validation retry, token budget exceeded |
+
+---
+
+## Workflow → Skill Dependencies
+
+| Workflow | Required Skills |
+|----------|----------------|
+| CW1 (Figma to Specs) | 12 |
+| CW2 (Pattern Audit) | 13, 18 |
+| CW3 (Implementation Roadmap) | 14, 15, 17 |
+| CW4 (Backend Build) | 01, 10, 14, 17 |
+| CW5 (Frontend Build) | 02, 05, 11, 15 |
+| CW5A (Final UI Sync) | 12, 16 |
+| TOOL-add-backend-module | 01, 17 |
+| TOOL-add-db-column | 17 |
+| TOOL-add-crud-endpoint | 01, 11 |
+| TOOL-add-background-job | 07 |
+| TOOL-add-socket-event | 06 |
+| TOOL-add-email-template | 08 |
+| TOOL-add-file-upload | 04 |
+| TOOL-add-frontend-page | 02, 05, 11 |
+| TOOL-manage-clinical-agent-node | 19, 20, 21 |
+| TOOL-bug-solve | 18 |
+| TOOL-pr-review | 18 |

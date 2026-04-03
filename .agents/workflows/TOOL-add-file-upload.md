@@ -22,6 +22,7 @@ description: Add a file upload endpoint end-to-end (Multer route + S3 upload + s
    - Store both `signedUrl` and `uploaded_at: new Date()` in the DB
 
 5. **Backend GET endpoint** — if this file will be returned in a GET response, call `refreshS3UrlPath()` before responding.
+   > **Why `refreshS3UrlPath()`?** AWS S3 signed URLs expire (default: 7 days in this project). Any GET endpoint that returns a stored file URL must call `refreshS3UrlPath(url)` to regenerate the signed URL if expired. Without this, users get 403 errors on old file links.
 
 6. **Frontend service function** — add to the appropriate `src/api/<domain>Services.ts`:
    ```ts

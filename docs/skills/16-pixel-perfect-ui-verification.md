@@ -8,6 +8,8 @@ Systematically compare every implemented frontend component against its Figma so
 - When a component visually doesn't match the design and needs a systematic check
 - During a design review to verify Figma fidelity
 
+> **Figma API fallback:** If the Figma MCP tool is unavailable (API down, token expired, file unshared), ask the user to provide exported screenshots or a PDF of the relevant screens before proceeding. Do not skip the design verification step.
+
 ## Steps
 
 1. Extract the file key and node ID from the Figma URL. Call `mcp_figma_view_node` with the file key and the node ID of the first screen to verify.

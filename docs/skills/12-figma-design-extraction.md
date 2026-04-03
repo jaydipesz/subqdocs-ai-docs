@@ -2,6 +2,8 @@
 
 **Canonical extraction procedure:** When running inside CW1, CW1 steps supersede this skill's steps. Use this skill only for standalone extractions outside the FEATURE-IMPLEMENTATION-MASTER workflow.
 
+> **Figma API fallback:** If the Figma MCP tool is unavailable (API down, token expired, file unshared), ask the user to provide exported screenshots or a PDF of the relevant screens before proceeding. Do not skip the design verification step.
+
 ## Purpose
 Extract structured, implementation-ready data from a Figma design file using the Figma MCP, preventing the most common downstream failures: inferred fields, missing states, skipped screens, and approximate visual values.
 

@@ -1,16 +1,16 @@
 ---
-description: Comprehensive Code Review for Pull Requests in Antigravity
+description: Comprehensive Code Review for Pull Requests in SubQDocs
 ---
 
-# Comprehensive Code Review for Pull Requests in Antigravity
+# Comprehensive Code Review for Pull Requests in SubQDocs
 
-This workflow performs a structured pull request review, ensuring adherence to Antigravity's architectural patterns and coding standards.
+This workflow performs a structured pull request review, ensuring adherence to SubQDocs' architectural patterns and coding standards.
 
 ---
 
 ## PR Review Trigger
 
-Trigger this workflow by saying: `"Review PR #[number]"` or `"Review PR #[number] in antigravity"`.
+Trigger this workflow by saying: `"Review PR #[number]"` or `"Review PR #[number] in SubQDocs"`.
 
 ---
 

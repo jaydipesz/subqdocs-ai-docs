@@ -138,3 +138,26 @@ GET /api/billing/invoices
   Errors:
     - Unauthorized → 401
 ```
+
+---
+
+## Testing Conventions
+
+### Test file location and naming
+- Backend test files go alongside the module: `src/modules/<module>/__tests__/<module>.test.ts`
+- Name test files to match what they test: `patient.controller.test.ts`, `invoice.service.test.ts`
+- Shared test utilities go in `src/__tests__/helpers/`
+
+### What to test
+| Layer | What to test | What NOT to test |
+|-------|-------------|-----------------|
+| Controller | HTTP status codes, response shape, validation rejection, auth guards | Internal Sequelize behavior |
+| Service | Business logic, multi-step operations, edge cases | Framework internals |
+| Repository | Complex queries with filters, pagination, soft-delete behavior | Simple CRUD wrappers |
+
+### Test rules
+- NEVER use production database credentials in tests — use a separate test database or mock the repository layer
+- NEVER include real PHI in test fixtures — use realistic but fake data (e.g., "Jane Doe", DOB "1990-01-01")
+- ALWAYS clean up created test data in `afterEach` or `afterAll` hooks
+- ALWAYS mock external services (email, S3, Stripe) — never make real API calls in tests
+- ALWAYS scope test queries by a test-specific `organization_id` to prevent pollution

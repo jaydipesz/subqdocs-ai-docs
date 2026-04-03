@@ -21,7 +21,7 @@ description: Add a new CRUD endpoint to an existing backend module (controller +
 5. Add the route in the module's `routes/` file inside the existing factory function:
    - Apply middleware chain: `authMiddleware`, `organizationMemberMiddleware` (if needed), `trackDeviceLog`, `userActivityMiddleware`, `validationMiddleware(schema, source)`
 
-6. Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-frontend-api-integration.md`.
+6. *(Optional — skip if backend-only)* Add the corresponding frontend service function in `subqdocs-frontend/src/api/<domain>Services.ts` using the typed axios wrapper. Follow `docs/skills/11-frontend-api-integration.md`.
 
 7. Validate:
 // turbo

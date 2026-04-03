@@ -114,3 +114,48 @@ module.exports = {
   },
 };
 ```
+
+---
+
+## Indexing Rules
+
+### When to add an index
+- Any column used in a `WHERE` clause on tables with >10K expected rows
+- Any column used in `ORDER BY` on paginated queries
+- Any foreign key column (`patient_id`, `visit_id`, `organization_id`)
+- Composite queries: add a **composite index**, not multiple single-column indexes
+
+### Composite index column ordering
+Order columns by **equality filters first, then range filters, then sort columns**:
+```sql
+-- Query: WHERE organization_id = ? AND created_at > ? ORDER BY id
+-- Index: (organization_id, created_at, id) ✅
+-- NOT:   (created_at, organization_id, id) ❌
+```
+
+### Mandatory indexes for clinical tables
+Every clinical table MUST have at minimum:
+- `organization_id` (single column — for tenant-scoped scans)
+- `(organization_id, <primary_lookup_column>)` composite (e.g., `(organization_id, patient_id)`)
+
+### Unique constraints
+Use `addIndex` with `unique: true` instead of column-level UNIQUE when the constraint spans multiple columns.
+
+### Migration pattern
+```js
+// up
+await queryInterface.addIndex('table_name', ['organization_id', 'patient_id'], {
+  name: 'idx_table_org_patient',
+  transaction: t,
+});
+
+// down — always use the explicit name
+await queryInterface.removeIndex('table_name', 'idx_table_org_patient', { transaction: t });
+```
+Always name indexes explicitly — auto-generated names are database-dependent and break `removeIndex` in the `down` function.
+
+### Indexing checklist
+- [ ] Foreign key columns are indexed
+- [ ] Clinical tables have `organization_id` in a composite index
+- [ ] Composite index column order matches query filter order (equality → range → sort)
+- [ ] Index names are explicit, not auto-generated

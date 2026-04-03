@@ -7,9 +7,9 @@ description: Mandatory rules for PHI, API, and frontend patterns.
 
 1. Always include `organization_id = loggedInUser.organization_id` in queries on
 clinical tables. It may be omitted only when querying by a guaranteed globally
-unique primary key returning a single record, and the exception is documented.
+unique primary key returning a single record, and the exception is documented in a code comment on the query line explaining why organization_id scoping is safe to omit.
 2. Never return raw Sequelize model instances from a controller — call `parse(model)` from `@utils/common.utils` before passing data to `generalResponse()`.
-3. Never hard-delete rows in `patients` or `patient_visits` — both use `paranoid: true`; use the repository `deleteData` function which sets `deleted_at`.
+3. Never hard-delete rows in any table with `paranoid: true` — use the repository `deleteData` function which sets `deleted_at`. Before adding `force: true` to any destroy operation, document why in a code comment.
 4. Never expose `password`, `otp`, `pin`, `token`, `secret_2fa`, `optum_password`, or `optum_username` in any API response, log output, socket event, or email subject.
 5. Backend route files must export a factory function (`(): Router => { ... }`) — plain `Router()` exports are not picked up by `server.ts`.
 6. All controller responses must go through `generalResponse(res, data, message, type, toast, status)` — never call `res.json()` or `res.send()` directly.
@@ -38,3 +38,7 @@ unique primary key returning a single record, and the exception is documented.
 23. Run the build or type-check after structural changes to catch errors before reporting success.
 24. When a task touches multiple files, make all edits before testing — partial edits produce misleading errors.
 25. If a task is ambiguous, ask one clarifying question rather than guessing and producing wrong output.
+26. Never pass user-supplied input to `Sequelize.literal()` or `sequelize.query()` without parameterized replacements (`$1`, `$bind`). Raw string interpolation inside SQL is a critical injection vector.
+27. Multi-step write operations that must succeed or fail atomically MUST be wrapped in a Sequelize managed transaction (`sequelize.transaction(async (t) => {...})`). Single-row writes do not require a transaction.
+28. Frontend styling MUST use Tailwind CSS utility classes mapped to design tokens in `tailwind.config.js`. Avoid arbitrary bracket values (e.g., `text-[13px]`, `mt-[11px]`) unless Figma explicitly requires a non-token value — extend the config instead.
+29. Every button or clickable element that triggers an API call (mutation) MUST be disabled while the request is in-flight. Use `disabled={mutation.isPending}` for `useMutation`, or a local `isPending` state guard for imperative calls. Never rely solely on backend idempotency.

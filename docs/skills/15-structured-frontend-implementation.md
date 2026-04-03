@@ -41,9 +41,52 @@ Ensure frontend features are implemented in the correct dependency order with bu
 
 ## Core UI Implementation Rules
 
-### 1. Mutation UI State
-ALWAYS disable submit buttons during active mutations to prevent duplicate requests.
-**Example:** `<button disabled={mutation.isPending}>Submit</button>`
+### 1. Mutation UI State & Double-Click Protection
+ALWAYS disable interactive elements during active API calls to prevent duplicate requests (Rule 29).
+
+**Pattern A — Form submit with `useMutation`:**
+```tsx
+const mutation = useMutation({ mutationFn: createInvoice, ... });
+<button disabled={mutation.isPending}>
+  {mutation.isPending ? 'Submitting...' : 'Submit'}
+</button>
+```
+
+**Pattern B — Non-form button click (e.g., "Approve", "Send", "Delete"):**
+```tsx
+const mutation = useMutation({ mutationFn: approveVisit, ... });
+
+const handleApprove = () => {
+  if (mutation.isPending) return; // guard against rapid clicks
+  mutation.mutate({ visitId });
+};
+
+<button onClick={handleApprove} disabled={mutation.isPending}>
+  {mutation.isPending ? 'Approving...' : 'Approve'}
+</button>
+```
+
+**Pattern C — Imperative API call without `useMutation` (rare, avoid when possible):**
+```tsx
+const [isPending, setIsPending] = useState(false);
+
+const handleClick = async () => {
+  if (isPending) return;
+  setIsPending(true);
+  try {
+    await someApiCall();
+  } finally {
+    setIsPending(false);
+  }
+};
+
+<button onClick={handleClick} disabled={isPending}>Action</button>
+```
+
+**Rules:**
+- ALWAYS prefer `useMutation` over imperative `async/await` in click handlers — TanStack Query manages the pending state for you.
+- ALWAYS show a loading indicator (spinner, text change, or opacity) alongside `disabled` — a disabled button with no visual feedback confuses users.
+- NEVER rely on backend idempotency alone — the UI must prevent the duplicate call.
 
 ### 2. Layout Stability
 ALWAYS prefer Tailwind `gap` utilities within flex/grid containers over manual `margin` spacing between sibling elements.
@@ -64,6 +107,8 @@ Query keys MUST strictly follow an array structure containing the resource name 
 **Never:** Do NOT use string-only dynamic keys (e.g., `` `invoices-${patientId}` ``).
 
 ## Desktop & Laptop Responsive Fidelity Rules (Figma-Aligned)
+
+> **Prerequisite:** These rules assume Tailwind CSS is configured via `subqdocs-frontend/tailwind.config.js`. If the project uses a different CSS framework, adapt token names accordingly.
 
 Responsive styling MUST remain consistent across all laptop and desktop screen sizes while matching Figma layout constraints.
 

@@ -230,3 +230,54 @@ export default PatientRoute;
 - [ ] Controller calls `parse(model)` before responding
 - [ ] Route is a factory function (`const X = (): Router => { ... }`)
 - [ ] Route added to `apiRoutes` array in `server.ts`
+
+---
+
+## Association Patterns
+
+When defining Sequelize associations between models, follow these patterns:
+
+### Standard associations
+```ts
+// In src/sequelize/models/index.ts — after all models are imported
+
+// One-to-Many: One patient has many visits
+Patient.hasMany(PatientVisit, { foreignKey: 'patient_id', as: 'visits' });
+PatientVisit.belongsTo(Patient, { foreignKey: 'patient_id', as: 'patient' });
+
+// Many-to-Many: Patients have many diagnoses through a join table
+Patient.belongsToMany(Diagnosis, { through: PatientDiagnosis, foreignKey: 'patient_id', as: 'diagnoses' });
+Diagnosis.belongsToMany(Patient, { through: PatientDiagnosis, foreignKey: 'diagnosis_id', as: 'patients' });
+
+// One-to-One
+User.hasOne(UserProfile, { foreignKey: 'user_id', as: 'profile' });
+UserProfile.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+```
+
+### Eager loading rules
+- ALWAYS specify `attributes` inside `include` — never load all columns from associated tables:
+  ```ts
+  // ✅ CORRECT
+  include: [{ model: Patient, as: 'patient', attributes: ['id', 'first_name', 'last_name'] }]
+
+  // ❌ WRONG — loads all columns including PHI
+  include: [{ model: Patient, as: 'patient' }]
+  ```
+- AVOID nested includes beyond 2 levels — deep nesting causes exponential memory growth
+- NEVER use eager loading in list/paginated endpoints with potentially large datasets — use separate queries instead
+- ALWAYS use `required: false` for optional associations (LEFT JOIN) — default `required: true` drops parent rows without matches
+
+### N+1 query prevention
+```ts
+// ❌ N+1 — queries inside a loop
+const visits = await PatientVisit.findAll({ where: { organization_id } });
+for (const visit of visits) {
+  visit.patient = await Patient.findByPk(visit.patient_id); // BAD
+}
+
+// ✅ Single query with include
+const visits = await PatientVisit.findAll({
+  where: { organization_id },
+  include: [{ model: Patient, as: 'patient', attributes: ['id', 'first_name', 'last_name'] }],
+});
+```

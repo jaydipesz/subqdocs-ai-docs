@@ -55,11 +55,20 @@ If the user says "skip" or "none" for any optional input, use the Default value.
 1. Read `.agents/rules/production-rules.md`.
 2. Read `AI-CONTEXT.md`, `AI-CONTEXT-BACKEND.md`, `AI-CONTEXT-FRONTEND.md`.
 3. Read `docs/skills/INDEX.md`.
-4. Read every child workflow file listed in the table below.
+4. Read the child workflow file for the **current phase only** (start with CW1). Load subsequent CW files on-demand as each phase completes.
 5. Check INDEX.md against what this feature requires. If a skill is missing, **stop and report**: "Missing skill for [operation]. Cannot proceed without: [specific skill requirement]." Do not create skills during the master workflow — skills must be authored and reviewed separately.
 6. Confirm: **"Context loaded. Skills verified. Inputs collected. Missing skills: [list or none]."**
 
 Do not write any code or produce any artifact until intake and bootstrap are both complete.
+
+### Turbo Annotation Policy
+- `// turbo` — safe for: `npx tsc --noEmit`, `cat`, `ls`, `grep`, read-only file inspection
+- `// turbo` — NEVER for: `npm run migrate`, `git commit`, `git push`, `rm`, `npm install`, any command that modifies state
+- `// turbo-all` — use only on scaffolding workflows where every step is deterministic and non-destructive
+
+### Confirmation Policy
+- **Default:** Confirm at CW1 (design) and CW3 (plan). CW2, CW4, CW5 proceed automatically unless errors are found.
+- **Strict mode:** If the user says "confirm at every step", require confirmation at all gates.
 
 ## Child Workflows
 
@@ -67,9 +76,9 @@ Do not write any code or produce any artifact until intake and bootstrap are bot
 |----|-------------------------|---------------------------------------|----------------------------|--------------------------------|
 | 1  | Figma Analysis          | `CW1-figma-to-specs.md`              | Always runs first          | FIGMA ANALYSIS REPORT          |
 | 2  | Codebase Audit          | `CW2-pattern-audit.md`               | After CW1 confirmed        | AUDIT REPORT                   |
-| 3  | Plan                    | `CW3-implementation-roadmap.md`       | After CW2 confirmed        | IMPLEMENTATION PLAN            |
+| 3  | Plan                    | `CW3-implementation-roadmap.md`       | After CW2 done             | IMPLEMENTATION PLAN            |
 | 4  | Backend Implementation  | `CW4-backend-build.md`              | After CW3 confirmed        | API CONTRACT DOCUMENT          |
-| 5  | Frontend Implementation | `CW5-frontend-build.md`             | After CW4 confirmed        | COMPONENT-TO-FIGMA MAPPING     |
+| 5  | Frontend Implementation | `CW5-frontend-build.md`             | After CW4 done             | COMPONENT-TO-FIGMA MAPPING     |
 | 5A | UI Verification         | `CW5A-final-ui-sync.md`             | Immediately after CW5      | UI VERIFICATION REPORT         |
 
 ## Artifact Registry

@@ -12,6 +12,7 @@ Take full ownership of the bug. Deliver a precise, verified, and safe resolution
 2. **Read before reasoning.** Open every file in the execution chain before forming a theory. Symptom location ≠ root cause.
 3. **One fix, one reason.** Every change must explain what it fixes and why. No bundled refactors.
 4. **Do no harm.** Think through shared state, dependent modules, and edge cases before changing anything.
+5. **Verify every symbol.** Before writing any fix, confirm that every variable, function, type, and component you will reference actually exists, is in scope, and has the shape you expect. Never assume — check the declaration.
 
 ---
 
@@ -24,6 +25,7 @@ Restate the bug: expected vs. actual behavior. Classify the domain. Then investi
 - **Check recent changes** — `git log -n 10 --oneline -- <file>`. What changed?
 - **Search for related patterns** — `grep_search` to find how the same function is used elsewhere. Does it work there?
 - **Inspect schema/state** — use MCP tools to verify DB schema, migration history, or API routes as needed.
+- **Audit fix dependencies** — before forming a fix, verify every symbol your fix will touch: check declarations (not just usage), destructuring patterns, imports, component prop contracts, and third-party component child constraints. If you plan to inject JSX into a component tree, confirm the parent accepts arbitrary children.
 - **Load relevant skill files** from `docs/skills/` (check `INDEX.md`) if the bug touches a listed domain.
 
 ### Runtime Data Gate
@@ -61,18 +63,21 @@ Present the full diagnosis as a structured artifact at `.agents/artifacts/bug-fi
 
 **3. Fix Plan** — Step-by-step, file-level changes. Each step: what file, what changes, why, and risk flag if it touches shared logic. Must follow project conventions.
 
+**3a. Symbol & Structure Checklist** — For each file being modified, list: (1) every new variable/function/component your fix references and confirm its declaration exists, (2) every insertion point and confirm the parent element accepts the injected content, (3) every import your fix requires and confirm it exists. This checklist must be present in the plan.
+
 **4. Side Effects & Regression** — Every module/flow sharing the modified code. Why each will or won't be affected.
 
 **5. Test Checklist** — Specific scenarios with expected results. Cover: happy path (bug is fixed), edge cases (boundary conditions), regression (existing flows still work).
 
 **6. Root Cause Insight** — Why this bug existed. What gap allowed it. Written so any developer fully understands the origin.
 
-### After approval:
+### After approval — Execution & Verification Gate:
 
-- Make all edits before testing — partial edits produce misleading errors.
-- Run the build after structural changes — catch errors before declaring success.
-- If build fails, fix as part of the resolution.
-- Update task.md and walkthrough.md artifacts.
+1. Make all edits before testing — partial edits produce misleading errors.
+2. **Run the project build command.** This is mandatory, not optional. Use the project's actual build command (e.g., `npm run build`, `tsc`, `go build`). Do NOT skip this step.
+3. If the build fails, fix the errors as part of this resolution. Return to step 2. Repeat until the build passes.
+4. Only after a clean build passes: update task.md and walkthrough.md artifacts.
+5. **Never declare a fix complete without a passing build.**
 
 ---
 
