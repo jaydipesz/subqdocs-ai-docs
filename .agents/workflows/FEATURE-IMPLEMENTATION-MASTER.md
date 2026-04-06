@@ -67,7 +67,7 @@ Do not write any code or produce any artifact until intake and bootstrap are bot
 - `// turbo-all` — use only on scaffolding workflows where every step is deterministic and non-destructive
 
 ### Confirmation Policy
-- **Default:** Confirm at CW1 (design) and CW3 (plan). CW2, CW4, CW5 proceed automatically unless errors are found.
+- **Default:** Confirm at CW1 (design) and CW3 (plan). CW2, CW4, CW5, CW5A, and CW6 proceed automatically unless errors or plan deviations are found.
 - **Strict mode:** If the user says "confirm at every step", require confirmation at all gates.
 
 ## Child Workflows
@@ -79,7 +79,8 @@ Do not write any code or produce any artifact until intake and bootstrap are bot
 | 3  | Plan                    | `CW3-implementation-roadmap.md`       | After CW2 done             | IMPLEMENTATION PLAN            |
 | 4  | Backend Implementation  | `CW4-backend-build.md`              | After CW3 confirmed        | API CONTRACT DOCUMENT          |
 | 5  | Frontend Implementation | `CW5-frontend-build.md`             | After CW4 done             | COMPONENT-TO-FIGMA MAPPING     |
-| 5A | UI Verification         | `CW5A-final-ui-sync.md`             | Immediately after CW5      | UI VERIFICATION REPORT         |
+| 5A | Final Reality Check     | `CW5A-final-e2e.md`                 | After 5 done               | FINAL REALITY CHECK REPORT     |
+| 6  | Fulfillment Audit       | `CW6-final-fulfillment.md`           | After 5A done              | FULFILLMENT REPORT             |
 
 ## Artifact Registry
 
@@ -87,20 +88,19 @@ Do not write any code or produce any artifact until intake and bootstrap are bot
 |---|---|---|
 | FIGMA ANALYSIS REPORT | CW1 | CW2, CW3, CW5, CW5A |
 | AUDIT REPORT | CW2 | CW3, CW4, CW5 |
-| IMPLEMENTATION PLAN | CW3 | CW4 |
+| IMPLEMENTATION PLAN | CW3 | CW4, CW5, CW5A |
 | API CONTRACT DOCUMENT | CW4 | CW5 |
 | COMPONENT-TO-FIGMA MAPPING | CW5 | CW5A |
-| UI VERIFICATION REPORT | CW5A | (terminal) |
+| FINAL REALITY CHECK REPORT | CW5A | CW6 |
+| FULFILLMENT REPORT | CW6 | (terminal) |
 
 ## Re-Entry Protocol
 
-If a later child workflow reveals that a previous workflow's output was incorrect or incomplete:
-1. Stop the current workflow.
-2. State which earlier artifact is wrong and what is wrong with it.
-3. Re-run the earlier child workflow to produce a corrected artifact.
-4. Resume from the child workflow that discovered the error.
+If an issue is discovered during the final phases:
+1. **Minor/Medium Bug in CW5A**: The agent **MUST NOT** re-run the workflow or stop for a new plan. **Fix the code immediately**, verify the fix in the current browser session, and proceed to completion.
+2. **Major Architectural Flaw**: Only if the fix requires a database schema change or violates a production rule should the agent stop and re-enter at Phase 3 (Plan).
 
-The re-entry protocol applies only to CW1–CW5A within the master chain. Utility workflows are atomic and do not participate in re-entry.
+The re-entry protocol applies to **CW1–CW5A**.
 
 ## Standing Rules
 

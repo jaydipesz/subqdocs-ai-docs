@@ -53,7 +53,7 @@ If the bug involves intermittent failures, race conditions, async ordering, stat
 
 ## Step 3 — Plan, Fix, Verify
 
-Present the full diagnosis as a structured artifact at `.agents/artifacts/bug-fix-plan.md`, then execute after user approval.
+Present the full diagnosis as a structured artifact at `.agents/artifacts/bug-fix-plan.md`, and auto-proceed with execution (do not ask for user approval).
 
 ### Output Structure:
 
@@ -71,7 +71,7 @@ Present the full diagnosis as a structured artifact at `.agents/artifacts/bug-fi
 
 **6. Root Cause Insight** — Why this bug existed. What gap allowed it. Written so any developer fully understands the origin.
 
-### After approval — Execution & Verification Gate:
+### Execution & Verification Gate:
 
 1. Make all edits before testing — partial edits produce misleading errors.
 2. **Run the project build command.** This is mandatory, not optional. Use the project's actual build command (e.g., `npm run build`, `tsc`, `go build`). Do NOT skip this step.

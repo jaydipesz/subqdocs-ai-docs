@@ -33,6 +33,7 @@ An agent should load a skill before acting when any trigger phrase below matches
 | 19 | [19-medical-prompt-rules.md](./19-medical-prompt-rules.md) | "create a prompt", "add an AI prompt", "new LLM prompt", "write a system prompt", "edit a prompt", "prompt engineering", "anti-hallucination", "medical prompt" | — |
 | 20 | [20-agent-node-implementation.md](./20-agent-node-implementation.md) | "add a new agent node", "create an agent node", "modify latest-agents workflow", "add a clinical section to pipe", "register agent node", "stateGraphWorkflow", "pipeline wiring", "edit journey", "continue recording" | 01, 06, 19, 21 |
 | 21 | [21-pipeline-prompt-integration.md](./21-pipeline-prompt-integration.md) | "pipeline prompt", "format settings", "validation schema for prompt", "invokeWithValidationAndRetry", "prompt factory", "formatRules", "pipeline template" | 19 |
+| 23 | [23-autonomous-e2e-engineering.md](./23-autonomous-e2e-engineering.md) | "E2E verification", "browser testing", "final reality check", "responsive test", "viewport audit" | 12 |
 
 ---
 
@@ -45,7 +46,7 @@ An agent should load a skill before acting when any trigger phrase below matches
 | CW3 (Implementation Roadmap) | 14, 15, 17 |
 | CW4 (Backend Build) | 01, 10, 14, 17 |
 | CW5 (Frontend Build) | 02, 05, 11, 15 |
-| CW5A (Final UI Sync) | 12, 16 |
+| CW5C (Final Reality Check) | 23 |
 | TOOL-add-backend-module | 01, 17 |
 | TOOL-add-db-column | 17 |
 | TOOL-add-crud-endpoint | 01, 11 |
